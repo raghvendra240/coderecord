@@ -2,6 +2,7 @@ import React from 'react'
 import './App.scss'
 import Header from './components/header/header'
 import Welcome from './components/welcome/welcome'
+import AuthenticationForm from './components/authenticationForm/authenticationForm'
 function getAuthenticatedView (userName) {
 
 }
@@ -17,6 +18,7 @@ export default function App() {
        <Header userDetails={userDetails}></Header>
        {(!isAuthenticated || isAuthenticated === 'false') && (<Welcome></Welcome>)}
        {isAuthenticated === 'true' && getAuthenticatedView(userName)}
+        <AuthenticationForm></AuthenticationForm>
     </div>
   )
 }
