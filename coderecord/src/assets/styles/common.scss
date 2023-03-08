@@ -1,0 +1,19 @@
+.cr-display-flex {
+    display: flex;
+    &.cr-space-between {
+        justify-content: space-between;
+    }
+    &.cr-space-around {
+        justify-content: space-around;
+    }
+    &.cr-vertical-center {
+        align-items: center;
+    }
+    &.cr-horizontal-center {
+        justify-content: center;
+    }
+}
+
+.cr-margin-left-24 {
+    margin-left: 24px;
+}

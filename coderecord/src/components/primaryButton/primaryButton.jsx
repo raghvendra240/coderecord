@@ -1,10 +1,10 @@
 import React from 'react'
 import './primaryButton.scss'
 
-export default function primaryButton({btnText, isAuthenticated}) {
+export default function primaryButton({btnText}) {
   return (
     <>
-    {isAuthenticated==='false' ? (<div className='primary-btn'>{btnText}</div>): ''}
+      <div className='primary-btn'>{btnText}</div>
     </>
   )
 }
