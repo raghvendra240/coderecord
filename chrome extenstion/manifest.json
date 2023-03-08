@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Coderecord",
+    "description": "Keeps record of your solved questions on various platforms",
+    "version": "1.0",
+    "action": {
+        "default_popup": "./popup/main.html",
+        "default_title": "Coderecord",
+        "default_icon": "./assets/images/logo_min_bg--cropped.png"
+    }
+}
