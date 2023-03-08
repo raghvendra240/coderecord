@@ -1,4 +1,5 @@
 .header-container {
+    position: sticky;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,7 +8,6 @@
     background: rgb(245,70,30);
     background: linear-gradient(103deg, rgba(245,70,30,1) 64%, rgba(2,0,36,1) 90%);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;

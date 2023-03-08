@@ -1,0 +1,14 @@
+.hero-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .hero-text {
+        color: #FFF;
+        line-height: 28px;
+        font-size: 18px;
+        font-family: Gilroy-Regular;
+        margin-top: 24px
+    }
+}
