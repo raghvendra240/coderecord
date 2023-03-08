@@ -20,6 +20,14 @@
         font-size: 32px;
         font-weight: 500;
         color: white;
+        .close-btn-wrapper {
+            position: absolute;
+            right: -25px;
+            .close-btn-image {
+                cursor: pointer;
+                width: 130px
+            }
+        }
     }
     .watermark {
         z-index: 10;
