@@ -3,8 +3,8 @@ import {useState} from "react";
 import "./authenticationForm.scss";
 import "../../assets/styles/common.scss";
 import PrimaryButton from "../primaryButton/primaryButton";
+import CloseButton from "../closeButton/closeButton";
 import miniLogo from "../../assets/images/logo_mini.png";
-import closeBtn from "../../assets/images/close_btn.png";
 
 const formStates = {
     SIGN_UP: "SIGN_UP",
@@ -92,7 +92,7 @@ function primaryBtnClickHandler(formState, setFormState) {
     }
 }
 
-export default function AuthenticationForm({currentFormState}) {
+export default function AuthenticationForm({currentFormState, closeModalFn}) {
 //   const userEmail = "dashjv@gmai.com";
  
   const [formState, setFormState] = useState(currentFormState || formStates.SIGN_UP);
@@ -107,9 +107,7 @@ export default function AuthenticationForm({currentFormState}) {
         <div>
           <div className="form-header">
             <div>Sign Up</div>
-            <div className="close-btn-wrapper">
-              <img className="close-btn-image" src={closeBtn} alt="" />
-            </div>
+            <CloseButton clickHandlerCB={closeModalFn} ></CloseButton>
           </div>
           <div>
             <img className="watermark" src={miniLogo} alt="" />

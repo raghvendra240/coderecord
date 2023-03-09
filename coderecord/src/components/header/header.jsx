@@ -21,15 +21,18 @@ function authenticatedView (userName = "Raghav", profilePicture) {
   )
 }
 
-export default function header({userDetails}) {
+export default function header({userDetails, authenticationModalHandler}) {
   const userName = userDetails && userDetails.userName;
   const isAuthenticated = userDetails && userDetails.isAuthenticated;
   const profilePicture = (userDetails && userDetails.profilePicture) || 'https://cdn.pixabay.com/photo/2020/05/09/13/29/photographer-5149664_960_720.jpg';
+  const authenticationModalHandlerCB = () => {
+    authenticationModalHandler(true);
+  }
   return (
     <>
     <div className='header-container'>
         <img className='logo-black' src={logo} alt="logo" />
-        {(isAuthenticated === 'false' || !isAuthenticated) && (<PrimaryButton btnText='Login' isAuthenticated='true'></PrimaryButton>)}
+        {(isAuthenticated === 'false' || !isAuthenticated) && (<PrimaryButton btnText='Login' clickHandlerCB={authenticationModalHandlerCB} isAuthenticated='true'></PrimaryButton>)}
         {isAuthenticated === 'true' && authenticatedView(userName, profilePicture)}
     </div>
     </>
