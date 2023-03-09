@@ -3,6 +3,7 @@ import './App.scss'
 import Header from './components/header/header'
 import Welcome from './components/welcome/welcome'
 import AuthenticationForm from './components/authenticationForm/authenticationForm'
+import Loader from './components/loader/loader'
 function getAuthenticatedView (userName) {
 
 }
