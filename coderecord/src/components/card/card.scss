@@ -1,0 +1,19 @@
+.card {
+    overflow: hidden;
+    width: 80%;
+    height: 120px;
+    border-radius: 30px;
+    background: #212121;
+    display: flex;
+    box-shadow: 15px 15px 30px rgb(25, 25, 25),-15px -15px 30px rgb(60, 60, 60);
+    &:hover {
+        box-shadow: 54px 59px 24px #191919, -4px -15px 41px #3c3c3c;
+    }
+    .image {
+        height: 100%;
+        position: relative;
+    }
+
+   }
+   
+   

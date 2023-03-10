@@ -1,0 +1,9 @@
+.main-body-container {
+    // width: 100%;
+    min-height: calc(100vh - 100px);
+    background: #212121;
+    overflow-x: hidden;
+    padding: 30px 60px;
+    display: flex;
+    justify-content: center;
+}
