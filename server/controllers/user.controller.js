@@ -63,3 +63,24 @@ exports.loginUser = async (req, res) => {
 exports.verifyOTP = async (req, res) => {
 
 };
+
+exports.getMe = async (req, res) => {
+  try {
+      const userInfo = await User.findById(req.userId).select('-password');
+      res.status(200).send({
+        success: true,
+        message: 'User info fetched successfully',
+        data: userInfo,
+        err: [],
+      });
+  } catch (error) {
+    console.log("Error while getting user", error);
+    res.status(500).send({
+      success: false,
+      message: 'Error while getting user',
+      data: [],
+      err: [error],
+    });
+  }
+}
+
