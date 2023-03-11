@@ -7,4 +7,5 @@ module.exports = {
     dbPassword: process.env.DB_PASSWORD,
     dbName: process.env.DB_NAME,
     PORT: process.env.PORT,
+    OTP_EXPIRES_IN: process.env.OTP_EXPIRES_IN,
 }

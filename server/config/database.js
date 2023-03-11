@@ -2,7 +2,6 @@
 const serverConfig = require('./serverConfig');
 const mongoose = require('mongoose');
 const {  dbHost, dbUser, dbPassword, dbName } = serverConfig;
-console.log(serverConfig);
 
 const MONGO_URL = `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`;
 
