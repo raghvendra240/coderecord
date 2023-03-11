@@ -1,4 +1,9 @@
 
+function closePopup() {
+    const popup = document.querySelector(".popup");
+    popup.style.display = "none";
+  }
+
 function getModal() {
     const popup = document.createElement("div");
     popup.classList.add("popup");
@@ -70,6 +75,7 @@ function getModal() {
     const closeButton = document.createElement("button");
     closeButton.classList.add("close-button");
     closeButton.innerHTML = "&times;";
+    closeButton.addEventListener("click", closePopup);
     popupHeader.appendChild(closeButton);
   
     const popupBody = document.createElement("div");
@@ -110,9 +116,20 @@ function getModal() {
   
     const form = document.createElement("form");
     const label = document.createElement("label");
-    label.setAttribute("for", "hont");
+    label.setAttribute("for", "hint");
     label.textContent = "Additional Notes:";
-  
+
+    //Create lable and input of type date
+    const dateLabel = document.createElement("label");
+    dateLabel.setAttribute("for", "date");
+    dateLabel.textContent = "Set Reminder Date:";
+
+    const dateInput = document.createElement("input");
+    dateInput.setAttribute("type", "date");
+    dateInput.setAttribute("id", "date");
+    form.appendChild(dateLabel);
+    form.appendChild(dateInput);
+
     // create textarea element
     const textarea = document.createElement("textarea");
     textarea.setAttribute("id", "hint");
@@ -280,7 +297,6 @@ function getModal() {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
     padding: 20px;
     background-color: #f05d23;
     border-top-left-radius: 10px;
@@ -338,7 +354,21 @@ function getModal() {
   .success-icon {
     fill: #00cc00; /* change the fill color to whatever you want */
   }
-  
+
+  input[type="date"]{
+    background-color: #f05d23;
+    padding: 10px 15px;
+    font-family: "Roboto Mono",monospace;
+    color: #ffffff;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+  }  
+  input[type="date"]::-webkit-calendar-picker-indicator{
+      padding: 5px;
+      cursor: pointer;
+  }
   `;
 
 function insertPopupDom({problem}) {

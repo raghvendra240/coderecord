@@ -30,16 +30,7 @@ function submittedProblemHandler(problemId) {
     problemUrl,
     problemName,
   };
-  // chrome.runtime.sendMessage({ type: 'submittedProblem', problem });
   chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: problem });
-  //     const link = document.createElement('link');
-  //     link.type = 'text/css';
-  //     link.rel = 'stylesheet';
-  //     link.href = 'style.css';
-
-  // // Append the link element to the head section of the HTML document
-  // document.head.appendChild(link);
- 
 }
 
 document.addEventListener("click", function (e) {
@@ -58,7 +49,6 @@ document.addEventListener("click", function (e) {
           observer.disconnect(); // Disconnect the observer since we no longer need it
           console.log("Mutated");
           setTimeout(() => {
-            // debugger;
             const currentPath = window.location.pathname;
             const submissionId = currentPath.split("submissions")[1];
             if (!submissionId) return;
@@ -74,10 +64,5 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// const style = document.createElement("style");
-// style.type = "text/css";
-// style.appendChild(document.createTextNode(css));
-// document.head.appendChild(style);
-// const modal = getModal();
-// document.body.appendChild(modal);
-// console.log("Mesage sent")
+chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: {} });
+
