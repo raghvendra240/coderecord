@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 //OTP Modal
-const OTP = require('./otp.modal');
+const OTP = require('./otp.model');
 
 //OTP Generator service
 const {getNewOTP} = require('../utils/otpGenerator');

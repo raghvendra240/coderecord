@@ -1,6 +1,6 @@
 const  mongoose = require('mongoose');
-const User = require('../modals/user.modal');
-const OTP = require('../modals/otp.modal');
+const User = require('../models/user.model');
+const OTP = require('../models/otp.model');
 const {getNewOTP} = require('../utils/otpGenerator');
 const sendOTPService = require('../services/sendOTPService');
 
@@ -11,17 +11,16 @@ exports.createUser = async (req, res) => {
     session = await mongoose.startSession();
     session.startTransaction();
 
-    // const user = new User(req.body);
-    // const createdUser = await user.save({session});
-    // const otp = getNewOTP();
-    // const otpDoc = new OTP({
-    //   userId: createdUser._id,
-    //   otp: otp,
-    //   createdAt: Date.now()
-    // });
-    // await otpDoc.save({session});
-    // await sendOTPService(createdUser.email, otp);
-    await sendOTPService('fetetaw789@fenwazi.com', 46789);
+    const user = new User(req.body);
+    const createdUser = await user.save({session});
+    const otp = getNewOTP();
+    const otpDoc = new OTP({
+      userId: createdUser._id,
+      otp: otp,
+      createdAt: Date.now()
+    });
+    await otpDoc.save({session});
+    await sendOTPService(createdUser.email, otp);
     await session.commitTransaction();
     res.status(201).send({
         success: true,
