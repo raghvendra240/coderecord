@@ -1,18 +1,41 @@
+const  mongoose = require('mongoose');
 const User = require('../modals/user.modal');
 const OTP = require('../modals/otp.modal');
 
+const {getNewOTP} = require('../utils/otpGenerator');
+
 exports.createUser = async (req, res) => {
+  let session = null;
   try {
     // await User.deleteMany({});
+    session = await mongoose.startSession();
+    session.startTransaction();
+
     const user = new User(req.body);
-    await user.save();
+    const createdUser = await user.save({session});
+    const otp = getNewOTP();
+    const otpDoc = new OTP({
+      userId: createdUser._id,
+      otp: otp,
+      createdAt: Date.now()
+    });
+    await otpDoc.save({session});
+
+    await session.commitTransaction();
     res.status(201).send({
         success: true,
         message: 'User created successfully',
     });
   } catch (error) {
+    if(session) {
+        await session.abortTransaction();
+    }
     console.log("Error occurred while creating user", error);
     res.status(400).send(error);
+  }finally {
+    if (session) {
+      session.endSession();
+    }
   }
 };
 

@@ -26,25 +26,25 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.post('save', async function (doc) {
+// userSchema.post('save', async function (doc) {
  
-  try {
-    const otp = getNewOTP();
-    const otpDoc = new OTP({
-      userId: doc._id,
-      otp: otp,
-      createdAt: Date.now()
-    });
-    await otpDoc.save();
-  } catch (error) {
-   try {
-      console.log(doc);
-   } catch (error) {
-     console.log("Error while removing user", error)
-   }
-    throw new Error('Error while creating OTP',error);
-  }
-})
+//   try {
+//     const otp = getNewOTP();
+//     const otpDoc = new OTP({
+//       userId: doc._id,
+//       otp: otp,
+//       createdAt: Date.now()
+//     });
+//     await otpDoc.save();
+//   } catch (error) {
+//    try {
+//       console.log(doc);
+//    } catch (error) {
+//      console.log("Error while removing user", error)
+//    }
+//     throw new Error('Error while creating OTP',error);
+//   }
+// })
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
   const user = this;
