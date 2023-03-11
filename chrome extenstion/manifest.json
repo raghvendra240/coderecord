@@ -5,7 +5,9 @@
     "version": "1.0",
     "permissions": [
         "activeTab",
-        "storage"
+        "storage",
+        "alarms",
+        "notifications"
       ],
     "content_scripts": [
         {
@@ -14,11 +16,12 @@
         }
       ],
     "action": {
-        "default_popup": "./popup/main.html",
+        "default_popup": "./popup/main/main.html",
         "default_title": "Coderecord",
         "default_icon": "./assets/images/logo_min_bg--cropped.png"
     },
     "background": {
-        "service_worker": "./background/background.js"
+        "service_worker": "./background/background.js",
+        "type": "module"
     }
 }
