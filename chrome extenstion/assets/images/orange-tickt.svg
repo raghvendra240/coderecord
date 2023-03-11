@@ -1,0 +1,11 @@
+<svg class="success-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet">
+                <g fill="none" stroke="#F27C0F" stroke-width="4">
+                  <circle cx="32" cy="32" r="30" opacity="0">
+                    <animate attributeName="opacity" from="0" to="1" begin="0s" dur="0.3s" fill="freeze"></animate>
+                  </circle>
+                  <path d="M23,32 28,40 41,22" stroke-dasharray="50 50" opacity="0">
+                    <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.3s" fill="freeze"></animate>
+                    <animate attributeName="stroke-dashoffset" from="50" to="0" begin="0.1s" dur="0.3s" fill="freeze"></animate>
+                  </path>
+                </g>
+              </svg>
