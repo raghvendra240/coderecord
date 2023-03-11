@@ -16,12 +16,27 @@
 // }
 
 function showNotification () {
-  chrome.notifications.create({
-    type: 'basic',
-    iconUrl: './icon.png',
-    title: 'My Extension',
-    message: 'This is a notification from My Extension!',
+  // chrome.notifications.create({
+  //   type: 'basic',
+  //   iconUrl: './icon.png',
+  //   title: 'My Extension',
+  //   message: 'This is a notification from My Extension!',
+  // });
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    var tabId = tabs[0].id;
+    // Do something with the tab ID
+    chrome.browserAction.setPopup({
+      tabId: tabId,
+      popup: '../popup/main/main.html'
+    });
   });
+  // chrome.windows.create({
+  //   type: "popup",
+  //   url: "../popup.html",
+  //   width: 400,
+  //   height: 500
+  // });
+  
 }
 
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

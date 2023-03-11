@@ -1,5 +1,5 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "Coderecord",
     "description": "Track your progress, conquer coding challenges, and reach new heights with CodeRecord",
     "version": "1.0",
@@ -15,8 +15,8 @@
           "js": ["./content/content.js"]
         }
       ],
-    "action": {
-        "default_popup": "./popup/main/main.html",
+    "browser_action": {
+        "default_popup": "popup.html",
         "default_title": "Coderecord",
         "default_icon": "./assets/images/logo_min_bg--cropped.png"
     },
