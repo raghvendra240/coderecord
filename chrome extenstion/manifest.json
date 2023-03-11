@@ -20,7 +20,7 @@
         }
       ],
     "action": {
-        "default_popup": "popup.html",
+        "default_popup": "./popup/main/main.html",
         "default_title": "Coderecord",
         "default_icon": "./assets/images/logo_min_bg--cropped.png"
     },

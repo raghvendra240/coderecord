@@ -64,5 +64,5 @@ document.addEventListener("click", function (e) {
   }
 });
 
-chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: {} });
+// chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: {} });
 

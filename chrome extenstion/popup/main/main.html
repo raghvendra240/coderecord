@@ -3,21 +3,41 @@
   <head>
     <meta charset="UTF-8">
     <title>My Extension Popup</title>
-    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
     <div class="container">
-          <div class="header">
-            <h1 class="title">Problem Submitted</h1>
+          <div class="header-section">
+              <div class="main-logo">
+                <img src="../../assets/images/main_logo_orange.png" alt="">
+              </div>
+              <div class="line"></div>
           </div>
-          
-      <div class="content">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0C0C0D" width="96px" height="96px" class="success-icon"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.2l-3.5-3.5c-.4-.4-.4-1 0-1.4s1-.4 1.4 0L9 13.4l6.6-6.6c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.4 16.2c-.4.4-1 .4-1.4 0z"/></svg>
-        <p class="text">Thank you for submitting the problem. Please provide any hints or additional information that may be helpful in solving it:</p>
-        <textarea class="hint" placeholder="Enter hint or additional information"></textarea>
-        <button class="submit">Submit</button>
-      </div>
+          <div class="body-section">
+              <div class="not-authenticated hidden">
+                    <div class="display-flex h-center v-align">
+                        <img  class="warning-icon"src="../../assets/images/alert-circle.svg" alt="" srcset="">
+                        <div class="warning-text">Please login to start the service</div>
+                    </div>
+                    <div class="display-flex h-center" style="margin-top: 16px">
+                        <button class="login-btn">Login / Signup</button>
+                    </div>
+              </div>
+              <div class="authenticated">
+                <div class="text-align-center">
+                    <div class="welcome-msg">Hello Raghvendra</div>
+                    <div class="display-flex h-center v-center">
+                        <div class="green-dot"></div>
+                        <div class="welcome-subtext ">Sync is on</div>
+                    </div>
+                </div>
+                <div class="problem-section">
+                    <div>Problem Solved : 10</div>
+
+                </div>
+              </div>
+          </div>
     </div>
-    <script src="popup.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
