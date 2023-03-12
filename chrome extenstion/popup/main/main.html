@@ -1,42 +1,77 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>My Extension Popup</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
     <div class="container">
-          <div class="header-section">
-              <div class="main-logo">
-                <img src="../../assets/images/main_logo_orange.png" alt="">
-              </div>
-              <div class="line"></div>
+      <div class="header-section">
+        <div class="main-logo">
+          <img src="../../assets/images/main_logo_orange.png" alt="" />
+        </div>
+        <div class="line"></div>
+      </div>
+      <div class="body-section">
+        <div class="not-authenticated">
+          <div class="display-flex h-center v-align">
+            <img
+              class="warning-icon"
+              src="../../assets/images/alert-circle.svg"
+              alt=""
+              srcset=""
+            />
+            <div class="warning-text">Please login to start the service</div>
           </div>
-          <div class="body-section">
-              <div class="not-authenticated hidden">
-                    <div class="display-flex h-center v-align">
-                        <img  class="warning-icon"src="../../assets/images/alert-circle.svg" alt="" srcset="">
-                        <div class="warning-text">Please login to start the service</div>
-                    </div>
-                    <div class="display-flex h-center" style="margin-top: 16px">
-                        <button class="login-btn">Login / Signup</button>
-                    </div>
-              </div>
-              <div class="authenticated hidden">
-                <div class="text-align-center">
-                    <div class="welcome-msg">Hello Raghvendra</div>
-                    <div class="display-flex h-center v-center">
-                        <div class="green-dot"></div>
-                        <div class="welcome-subtext ">Sync is on</div>
-                    </div>
-                </div>
-                <div class="problem-section">
-                    <div>Problem Solved : 10</div>
-
-                </div>
-              </div>
+          <form id="login-form" action="" class="form hidden">
+            <input class="input" type="email" placeholder="Email" />
+            <input class="input" type="password" placeholder="Password" />
+            <div class="display-flex h-center" style="margin-top: 16px">
+              <button class="login-btn">Login / Signup</button>
+            </div>
+            <div class="form-submsg">
+              <span class="msg">Don't have a account ? </span>
+              <span class="form-submsg-link" id="login-to-signup">Login</span>
+            </div>
+          </form>
+          <form id="signup-form" action="" class="form hidden">
+            <input class="input" type="text" placeholder="First Name" />
+            <input class="input" type="text" placeholder="Last Name" />
+            <input class="input" type="email" placeholder="Email" />
+            <input class="input" type="password" placeholder="Password" />
+            <div class="display-flex h-center" style="margin-top: 16px">
+              <button class="login-btn">Continue</button>
+            </div>
+            <div class="form-submsg">
+              <span class="msg">Already have a account ? </span>
+              <span class="form-submsg-link" id="singup-to-login">Login</span>
+            </div>
+          </form>
+          <form id="signup-form" action="" class="form">
+            <div class="msg">Please check you inbox </div>
+            <input class="input" type="text" placeholder="Enter OTP" />
+            <div class="display-flex h-center" style="margin-top: 16px">
+              <button class="login-btn">Verify</button>
+            </div>
+            <div class="form-submsg">
+              <span class="form-submsg-link" id="singup-to-login">Change email ?</span>
+            </div>
+          </form>
+        </div>
+        <div class="authenticated hidden">
+          <div class="text-align-center">
+            <div class="welcome-msg">Hello Raghvendra</div>
+            <div class="display-flex h-center v-center">
+              <div class="green-dot"></div>
+              <div class="welcome-subtext">Sync is on</div>
+            </div>
           </div>
+          <div class="problem-section">
+            <div>Problem Solved : 10</div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="main.js"></script>
   </body>
