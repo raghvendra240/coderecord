@@ -9,10 +9,12 @@ export default function MainBody() {
   useEffect(() => {
     const fetchSolvedProblemsWrapper = async () => {
       try {
+        console.log("Fetching solved problems");
         let solvedProblems_ = await fetchSolvedProblems();
         if (!solvedProblems_) {
           throw new Error("")
         } else {
+          console.log(solvedProblems_);
           setSolvedProblems(solvedProblems_);
         }
       } catch (error) {
@@ -21,12 +23,12 @@ export default function MainBody() {
     };
 
     fetchSolvedProblemsWrapper();
-  });
+  }, []);
 
   return (
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
-      {solvedProblems.map((problem) => { return <Card solvedProblemInfo={problem}></Card>})}
+      {solvedProblems.map((problem) => { return <Card solvedProblemInfo={problem} key={problem._id}></Card>})}
     </div>
   )
 }
