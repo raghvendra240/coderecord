@@ -26,7 +26,7 @@ export default function App() {
         setUserDetails(info);
         setIsAuthenticated('true');
       } catch (error) {
-        console.log("Erorr while getting authentication detail",error);
+        console.log("Error while getting authentication detail",error);
       }
     };
 

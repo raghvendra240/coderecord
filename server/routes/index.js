@@ -7,6 +7,6 @@ const solvedProblemRoutes = require('./solvedProblem.routes');
 
 // router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
-router.use('/solvedproblems', solvedProblemRoutes);
+router.use('/solved-problems', solvedProblemRoutes);
 
 module.exports = router;

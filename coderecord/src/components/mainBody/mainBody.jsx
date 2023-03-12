@@ -1,11 +1,32 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './mainBody.scss'
 import Card from '../card/card'
+import {fetchSolvedProblems} from '../../services/solvedProblemService'
 
 export default function MainBody() {
+  const [solvedProblems, setSolvedProblems] = useState([]);
+
+  useEffect(() => {
+    const fetchSolvedProblemsWrapper = async () => {
+      try {
+        let solvedProblems_ = await fetchSolvedProblems();
+        if (!solvedProblems_) {
+          throw new Error("")
+        } else {
+          setSolvedProblems(solvedProblems_);
+        }
+      } catch (error) {
+        console.log("Error while fetching solved problems",error);
+      }
+    };
+
+    fetchSolvedProblemsWrapper();
+  });
+
   return (
     <div className='main-body-container'>
-        <Card></Card>
+      {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
+      {solvedProblems.map((problem) => { return <Card solvedProblemInfo={problem}></Card>})}
     </div>
   )
 }
