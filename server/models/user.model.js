@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
 //OTP Modal
 const OTP = require('./otp.model');
 
 //OTP Generator service
 const {getNewOTP} = require('../utils/otpGenerator');
+
+//Env Config
+const {JWT_SECRET} = require('../config/serverConfig');
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -50,5 +53,13 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   const user = this;
   return bcrypt.compare(candidatePassword, user.password);
 };
+
+userSchema.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id },JWT_SECRET, { expiresIn: '5d' });
+  // user.tokens = user.tokens.concat({ token });
+  // await user.save();
+  return token;
+}
 
 module.exports = mongoose.model('User', userSchema);

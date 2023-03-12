@@ -13,5 +13,5 @@ module.exports = {
     EMAIL_CLIENT_SECRET: process.env.EMAIL_CLIENT_SECRET,
     EMAIL_CLIENT_REDIRECT_URI: process.env.EMAIL_CLIENT_REDIRECT_URI,
     EMAIL_REFRESH_TOKEN: process.env.EMAIL_REFRESH_TOKEN,
-    
+    JWT_SECRET: process.env.JWT_SECRET,
 }

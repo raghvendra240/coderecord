@@ -13,14 +13,15 @@ exports.createUser = async (req, res) => {
 
     const user = new User(req.body);
     const createdUser = await user.save({session});
-    const otp = getNewOTP();
-    const otpDoc = new OTP({
-      userId: createdUser._id,
-      otp: otp,
-      createdAt: Date.now()
-    });
-    await otpDoc.save({session});
-    await sendOTPService(createdUser.email, otp);
+    /*--------KEPT OTP SERVICE AT HOLD */
+    // const otp = getNewOTP();
+    // const otpDoc = new OTP({
+    //   userId: createdUser._id,
+    //   otp: otp,
+    //   createdAt: Date.now()
+    // });
+    // await otpDoc.save({session});
+    // await sendOTPService(createdUser.email, otp);
     await session.commitTransaction();
     res.status(201).send({
         success: true,
@@ -41,8 +42,7 @@ exports.createUser = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
+    const { email, password } = req.body;;
     const user = await User.findOne({ email });
     if (!user) {
       throw new Error('User not found');
@@ -54,9 +54,21 @@ exports.loginUser = async (req, res) => {
     }
 
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    const {password: userPassword, createdAt, updatedAt , isVerified, ...userWithoutPassword} = user;
+    res.status(200).send({
+      success: true,
+      message: 'User logged in successfully',
+      data: { user: userWithoutPassword, token },
+      err: [],
+    });
   } catch (error) {
-    res.status(400).send(error);
+    console.log("Error while logging in user", error);
+    res.status(400).send({
+      success: false,
+      message: 'Error while logging in user',
+      data: [],
+      err: [error],
+    });
   }
 };
 
