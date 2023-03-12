@@ -24,15 +24,15 @@
             />
             <div class="warning-text">Please login to start the service</div>
           </div>
-          <form id="login-form" action="" class="form hidden">
-            <input class="input" type="email" placeholder="Email" />
-            <input class="input" type="password" placeholder="Password" />
+          <form id="login-form" action="" class="form">
+            <input class="input" type="email" name="email" placeholder="Email" />
+            <input class="input" type="password" name="password" placeholder="Password" />
             <div class="display-flex h-center" style="margin-top: 16px">
-              <button class="login-btn">Login / Signup</button>
+              <button class="login-btn" type="submit">Login</button>
             </div>
             <div class="form-submsg">
               <span class="msg">Don't have a account ? </span>
-              <span class="form-submsg-link" id="login-to-signup">Login</span>
+              <span class="form-submsg-link" id="login-to-signup">Signup</span>
             </div>
           </form>
           <form id="signup-form" action="" class="form hidden">
@@ -41,38 +41,40 @@
             <input class="input" type="email" placeholder="Email" />
             <input class="input" type="password" placeholder="Password" />
             <div class="display-flex h-center" style="margin-top: 16px">
-              <button class="login-btn">Continue</button>
+              <button class="login-btn" type="submit">Continue</button>
             </div>
             <div class="form-submsg">
               <span class="msg">Already have a account ? </span>
               <span class="form-submsg-link" id="singup-to-login">Login</span>
             </div>
           </form>
-          <form id="signup-form" action="" class="form">
+          <form id="otp-form" action="" class="form hidden">
             <div class="msg">Please check you inbox </div>
             <input class="input" type="text" placeholder="Enter OTP" />
             <div class="display-flex h-center" style="margin-top: 16px">
-              <button class="login-btn">Verify</button>
+              <button type="submit" class="login-btn">Verify</button>
             </div>
             <div class="form-submsg">
               <span class="form-submsg-link" id="singup-to-login">Change email ?</span>
             </div>
           </form>
+          <div class="error-text hidden"></div>
         </div>
         <div class="authenticated hidden">
           <div class="text-align-center">
-            <div class="welcome-msg">Hello Raghvendra</div>
-            <div class="display-flex h-center v-center">
+            <div class="welcome-msg"></div>
+            <div class="display-flex h-center v-center margin-top-8">
               <div class="green-dot"></div>
-              <div class="welcome-subtext">Sync is on</div>
+              <div class="welcome-subtext ">Sync is on</div>
             </div>
           </div>
           <div class="problem-section">
-            <div>Problem Solved : 10</div>
+            <div>Problem Solved : <span class="num-of-problem-solved"></span></div>
           </div>
         </div>
       </div>
     </div>
     <script src="main.js"></script>
+    <script src="./networkHandler.js"></script>
   </body>
 </html>
