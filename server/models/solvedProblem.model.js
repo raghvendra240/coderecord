@@ -17,8 +17,8 @@ const SolvedProblemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  submittedData: {
-    type: String,
+  submittedDate: {
+    type: Date,
     required: true,
   },
   reminderDate: {

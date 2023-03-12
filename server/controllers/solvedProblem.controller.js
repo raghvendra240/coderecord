@@ -26,7 +26,7 @@ module.exports.createSolvedProblem = async (req, res) => {
             problemName: req.body.problemName,
             problemId: req.body.problemId,
             problemUrl: req.body.problemUrl,
-            submittedData: Date.now(),
+            submittedDate: req.body.submittedDate,
             reminderDate: req.body.reminderDate,
             problemHint: req.body.problemHint,
             userId: req.userId,
@@ -39,6 +39,7 @@ module.exports.createSolvedProblem = async (req, res) => {
             err: [],
         });
     } catch (error) {
+        console.log("Error while creating solved problem", error);
         res.status(400).json({
             success: false,
             message: 'Error while creating solved problem',
