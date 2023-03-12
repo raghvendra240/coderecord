@@ -7,7 +7,7 @@ import ProfilePicturePreview from '../profilePicturePreview/profilePicturePrevie
 import dummyProfilePicture from '../../assets/images/profile_picture_dummy.png'
 import '../../assets/styles/common.scss'
 
-function authenticatedView (userName = "Raghav", profilePicture) {
+function authenticatedView (userName, profilePicture) {
     const profilePictureUrl = profilePicture || dummyProfilePicture;
   return (
     <>
@@ -33,7 +33,7 @@ export default function header({userDetails, authenticationModalHandler}) {
     <div className='header-container'>
         <img className='logo-black' src={logo} alt="logo" />
         {(isAuthenticated === 'false' || !isAuthenticated) && (<PrimaryButton btnText='Login' clickHandlerCB={authenticationModalHandlerCB} isAuthenticated='true'></PrimaryButton>)}
-        {isAuthenticated === 'true' && authenticatedView(userName, profilePicture)}
+        {isAuthenticated === 'true' && authenticatedView(userDetails.firstName, profilePicture)}
     </div>
     </>
   )

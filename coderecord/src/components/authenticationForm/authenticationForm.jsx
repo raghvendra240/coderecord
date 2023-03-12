@@ -6,10 +6,38 @@ import PrimaryButton from "../primaryButton/primaryButton";
 import CloseButton from "../closeButton/closeButton";
 import miniLogo from "../../assets/images/logo_mini.png";
 
+import {login} from "../../services/userService";
+
 const formStates = {
     SIGN_UP: "SIGN_UP",
     SIGN_IN: "SIGN_IN",
     OTP: "OTP",
+}
+
+function getFormHeading(formState) {
+  switch (formState) {
+    case formStates.SIGN_UP:
+      return "Sign Up";
+    case formStates.SIGN_IN:
+      return "Sign In";
+    case formStates.OTP:
+      return "Enter OTP";
+    default:
+      return "Sign In";
+  }
+}
+
+function getButtonText(formState) {
+  switch (formState) {
+    case formStates.SIGN_UP:
+      return "Continue";
+    case formStates.SIGN_IN:
+      return "Sign In";
+    case formStates.OTP:
+      return "Verify OTP";
+    default:
+      return "Sign In";
+  }
 }
 
 function getSignUpFields() {
@@ -33,18 +61,22 @@ function getSignUpFields() {
   );
 }
 
-function getSignInFields() {
+function getSignInFields(handleInputChange) {
   return (
     <div>
       <input
         className="input cr-big cr-margin-top-24"
         type="email"
+        name="email"
         placeholder="Email"
+        onChange={handleInputChange}
       />
       <input
         className="input cr-big cr-margin-top-24"
         type="password"
+        name="password"
         placeholder="Password"
+        onChange={handleInputChange}
       />
     </div>
   );
@@ -82,9 +114,15 @@ function getForm(formState) {
   }
 }
 
-function primaryBtnClickHandler(formState, setFormState) {
+async function loginHandler(setFormState, formFields) {
+  const userData = formFields;
+  const isLoginSuccess = await login(userData)
+}
+
+function primaryBtnClickHandler(event, formState, setFormState, formFields) {
+    event.preventDefault();
     if (formState === formStates.SIGN_IN) {
-        //TODO: Call API to verify user
+        loginHandler(setFormState, formFields);
     } else if (formState === formStates.SIGN_UP) {
         setFormState(formStates.OTP);
     } else if (formState === formStates.OTP) {
@@ -95,29 +133,34 @@ function primaryBtnClickHandler(formState, setFormState) {
 export default function AuthenticationForm({currentFormState, closeModalFn}) {
 //   const userEmail = "dashjv@gmai.com";
  
-  const [formState, setFormState] = useState(currentFormState || formStates.SIGN_UP);
-  function primaryBtnClickHandlerWrapper() {
-    primaryBtnClickHandler(formState, setFormState);
+  const [formState, setFormState] = useState(currentFormState || formStates.SIGN_IN);
+  const [formFields, setFormFields] = useState({});
+  function primaryBtnClickHandlerWrapper(event) {
+    primaryBtnClickHandler(event, formState, setFormState, formFields);
   }
   // eslint-disable-next-line no-func-assign
   primaryBtnClickHandlerWrapper = primaryBtnClickHandlerWrapper.bind(this);
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setFormFields({ ...formFields, [name]: value });
+  } 
   return (
     <div className="backdrop">
       <div className="authentication-form">
         <div>
           <div className="form-header">
-            <div>Sign Up</div>
+            <div>{getFormHeading(formState)}</div>
             <CloseButton clickHandlerCB={closeModalFn} ></CloseButton>
           </div>
           <div>
             <img className="watermark" src={miniLogo} alt="" />
           </div>
           <div className="input-field-wrappers">
-            {formState === formStates.OTP ? getOTPFields() : ''}
-            {formState === formStates.SIGN_IN ? getSignInFields() : ''}
-            {formState === formStates.SIGN_UP ? getSignUpFields() : ''}
+            {formState === formStates.OTP ? getOTPFields(handleInputChange) : ''}
+            {formState === formStates.SIGN_IN ? getSignInFields(handleInputChange) : ''}
+            {formState === formStates.SIGN_UP ? getSignUpFields(handleInputChange) : ''}
             <div className="cr-margin-top-24">
-              <PrimaryButton btnText="Continue" clickHandlerCB={primaryBtnClickHandlerWrapper} ></PrimaryButton>
+              <PrimaryButton btnText={getButtonText(formState)} clickHandlerCB={primaryBtnClickHandlerWrapper} ></PrimaryButton>
             </div>
           </div>
         </div>

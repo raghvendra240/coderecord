@@ -18,9 +18,13 @@ export default function App() {
   useEffect( () => {
     const fetchUserInfo = async () => {
       try {
-        const info = await getUserInfo();
-        info && setUserDetails(info);
-        info && setIsAuthenticated(true);
+        let info = await getUserInfo();
+        if (!info) {
+          throw new Error("No user info found");
+        }
+        info = {...info, isAuthenticated: 'true'};
+        setUserDetails(info);
+        setIsAuthenticated('true');
       } catch (error) {
         console.log("Erorr while getting authentication detail",error);
       }

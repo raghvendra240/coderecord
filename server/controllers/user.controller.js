@@ -54,7 +54,7 @@ exports.loginUser = async (req, res) => {
     }
 
     const token = await user.generateAuthToken();
-    const {password: userPassword, createdAt, updatedAt , isVerified, ...userWithoutPassword} = user;
+    const {password: userPassword, createdAt, updatedAt , isVerified, ...userWithoutPassword} = user._doc;
     res.status(200).send({
       success: true,
       message: 'User logged in successfully',
