@@ -1,9 +1,9 @@
-import {BASE_URL, LOCAL_STORAGE_KEY} from './../utils/globalConstants';
+import {BASE_URL} from './../utils/globalConstants';
+import { getLocalData, saveLocalData } from './localDataService';
 import axios from 'axios';
 
 export const getUserInfo = async () => {
-    const localDataStr = localStorage.getItem(LOCAL_STORAGE_KEY);
-    const localData = JSON.parse(localDataStr);
+    const localData = getLocalData();
     if (!localData || !localData.token) {
         return null;
     } 
@@ -22,7 +22,7 @@ export const login = async (userData) => {
     let response = await axios.post(`${BASE_URL}/users/login`, userData);
     response = response.data;
     if (response.success) {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(response.data));
+        saveLocalData(response.data);
         return true;
     }
     return null;

@@ -12,11 +12,13 @@
     "content_scripts": [
         {
           "matches": ["https://leetcode.com/problems/*"],
-          "js": ["./content/content.js"]
+          "js": ["./content/content.js"],
+          "run_at": "document_idle"
         },
         {
           "matches": ["https://leetcode.com/problems/*"],
-          "js": ["./content/successPopup.js"]
+          "js": ["./content/successPopup.js"],
+          "run_at": "document_idle"
         }
       ],
     "action": {
