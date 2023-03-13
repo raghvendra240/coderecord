@@ -15,6 +15,7 @@ const authenticate = async (req, res, next) => {
     req.token = token; // Attach token to request
     next(); // Move to next middleware
   } catch (e) {
+    console.log("Error in authenticate middleware: ", e);
     res.status(401).send({ error: 'Please authenticate.' });
   }
 };

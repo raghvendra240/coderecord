@@ -1,8 +1,54 @@
+const LOCAL_STORAGE_KEY = 'coderecordUserData';
+const BASE_URL = "http://localhost:5000/api";
+let problemObj = null;
 
 function closePopup() {
     const popup = document.querySelector(".popup");
     popup.style.display = "none";
-  }
+}
+
+async function getToken() {
+    let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
+    localData = localData[LOCAL_STORAGE_KEY];
+    if (!localData || !localData.token) {
+        return;
+    }
+    return localData.token;
+}
+
+async function onFormSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = {};
+    for (let [key, value] of formData) {
+        data[key] = value;
+    }
+    const token = await getToken();
+    if (!token) {
+        return;
+    }
+    const config = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data || {}),
+    };
+    try {
+        const response = await fetch(`${BASE_URL}/solved-problems`, config);
+        const result = await response.json();
+        console.log(result);
+    } catch (error) {
+        console.log(error);
+    }
+   
+  //   fetch('http://localhost:5000/')
+  // .then(response => console.log(response))
+  // .catch(error => console.error(error));
+
+}
 
 function getModal() {
     const popup = document.createElement("div");
@@ -127,6 +173,7 @@ function getModal() {
     const dateInput = document.createElement("input");
     dateInput.setAttribute("type", "date");
     dateInput.setAttribute("id", "date");
+    dateInput.setAttribute("name", "date");
     form.appendChild(dateLabel);
     form.appendChild(dateInput);
 
@@ -146,6 +193,8 @@ function getModal() {
     form.appendChild(textarea);
     form.appendChild(button);
     popupBody.appendChild(form);
+
+    form.addEventListener("submit", onFormSubmit);
   
     const notesLabel = document.createElement;
     return popup;
@@ -380,9 +429,16 @@ function insertPopupDom({problem}) {
   document.body.appendChild(modal);
 }
 
+const clearOtherPopups = () => {
+  const popups = document.querySelectorAll(".popup");
+  popups.forEach((popup) => popup.remove());
+}
+
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.type == "SHOW_POPUP") {
+        clearOtherPopups();
+        problemObj = message.problem;
         insertPopupDom(message);
     }
   });

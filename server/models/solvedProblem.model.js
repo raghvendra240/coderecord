@@ -12,6 +12,7 @@ const SolvedProblemSchema = new mongoose.Schema({
   problemId: {
     type: String,
     required: true,
+    unique: true,
   },
   problemUrl: {
     type: String,

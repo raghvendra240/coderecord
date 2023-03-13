@@ -10,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.get('/', (req, res) => {
+    res.send('Server is running');
+});
 app.use('/api', apiRoutes);
 
 app.listen(PORT, async () => {
