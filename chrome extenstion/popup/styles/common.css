@@ -1,0 +1,23 @@
+/*------------COMMON CSS-------------- */
+.display-flex {
+    display: flex;
+  }
+  .h-center {
+    justify-content: center;
+  }
+  .v-center {
+    align-items: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  .text-align-center {
+    text-align: center;
+  }
+  .margin-top-8 {
+    margin-top: 8px;
+  }
+  .margin-top-12 {
+    margin-top: 12px;
+  }

@@ -29,7 +29,7 @@ function loadUserDetails(user) {
 
 const onLogoutClick = async () => {
     await chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: null });
-    window.location.href = "./main.html";
+    location.reload();
 };
 
 async function checkAuthentication() {

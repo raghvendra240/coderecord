@@ -21,7 +21,7 @@ const onLoginSuccess = (token, user) => {
     }
     chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: data }, () => {
         console.log('Token saved in local storage');
-        window.location.href = "./main.html";
+        location.reload();
     });
 }
 

@@ -3,16 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>My Extension Popup</title>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/common.css" />
   </head>
   <body>
     <div class="container">
-      <div class="header-section">
-        <div class="main-logo">
-          <img src="../../assets/images/main_logo_orange.png" alt="" />
-        </div>
-        <div class="line"></div>
-      </div>
+      <div data-include="./templates/header.html"></div>
       <div class="body-section">
         <div class="not-authenticated">
           <div class="display-flex h-center v-align">
@@ -81,8 +77,8 @@
       </div>
     </div>
     <div data-include="../templates/loader.html"></div>
-    <script src="./includeHTML.js"></script>
-    <script src="main.js"></script>
-    <script src="./networkHandler.js"></script>
+    <script src="./scripts/includeHTML.js"></script>
+    <script src="./scripts/main.js" defer></script>
+    <script src="./scripts/networkHandler.js" defer></script>
   </body>
 </html>
