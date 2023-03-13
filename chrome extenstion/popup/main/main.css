@@ -108,6 +108,21 @@ body {
   color: red;
   font-size: 12px;
 }
+
+.log-out-btn {
+  width: 29px;
+  position: absolute;
+  top: 18px;
+  right: 9px;
+  cursor: pointer;
+}
+
+.error-text-container img {
+  width: 16px;
+}
+
+
+/*------------COMMON CSS-------------- */
 .display-flex {
   display: flex;
 }
@@ -126,4 +141,7 @@ body {
 }
 .margin-top-8 {
   margin-top: 8px;
+}
+.margin-top-12 {
+  margin-top: 12px;
 }

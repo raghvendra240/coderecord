@@ -1,17 +1,31 @@
 const BASE_URL = "http://localhost:5000/api"
 
 const setError = (msg = 'Something went wrong') => {
-    const error = document.querySelector('.error-text');
-    error.textContent = msg;
-    error.style.display = 'block';
+    const errorContainer = document.querySelector('.error-text-container');
+    const errorText = document.querySelector('.error-text');
+    errorText.textContent = msg;
+    errorContainer.style.display = 'flex';
 }
 const clearError = () => {
-    const error = document.querySelector('.error-text');
-    error.textContent = '';
-    error.style.display = 'none';
+    const errorContainer = document.querySelector('.error-text-container');
+    const errorText = document.querySelector('.error-text');
+    errorText.textContent = '';
+    errorContainer.style.display = 'none';
 }
 
-const login = async (email, password) => {
+
+const onLoginSuccess = (token, user) => {
+    const data = {
+        token: token,
+        user: user
+    }
+    chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: data }, () => {
+        console.log('Token saved in local storage');
+        window.location.href = "./main.html";
+    });
+}
+
+const loginNWRequest = async (email, password) => {
     try {
         const response = await fetch(`${BASE_URL}/users/login`, {
             method: "POST",
@@ -28,7 +42,7 @@ const login = async (email, password) => {
             const { token, user } = result.data;
             return { token, user };
         } else {
-            return { error: result.error };
+            return { error: result.error || true };
         }
     } catch (error) {
         console.log(error);
@@ -41,20 +55,11 @@ const loginHandler = async (form) => {
       const password = formData.get('password');
       const email = formData.get('email');
 
-    const response = await login(email, password);
+    const response = await loginNWRequest(email, password);
     if (response.error) {
         setError();
     } else {
-        // Save the token in local storage
-        // const localData = (await chrome.storage.local.get(LOCAL_STORAGE_KEY)) || {};
-        const data = {
-            token: response.token,
-            user: response.user
-        }
-        chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: data }, () => {
-            console.log('Token saved in local storage');
-            window.location.href = "./main.html";
-        });
+        onLoginSuccess(response.token, response.user);
     }
 };
 const signupHandler = async (form) => {};

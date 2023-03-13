@@ -27,8 +27,12 @@ function loadUserDetails(user) {
     loadSolvedProblems();
 }
 
+const onLogoutClick = async () => {
+    await chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: null });
+    window.location.href = "./main.html";
+};
+
 async function checkAuthentication() {
-    
     let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
     localData = localData[LOCAL_STORAGE_KEY];
     if (!localData || !localData.token) {
@@ -49,6 +53,8 @@ async function checkAuthentication() {
     }
     document.querySelector('.not-authenticated').style.display = 'none';
     document.querySelector('.authenticated').style.display = 'block';
+    const logoutBtn = document.querySelector('.log-out-btn');
+    logoutBtn.addEventListener('click', onLogoutClick);
     loadUserDetails(response.data);
 }
 
