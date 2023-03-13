@@ -1,5 +1,4 @@
-const LOCAL_STORAGE_KEY = 'coderecordUserData';
-// const BASE_URL = 'http://localhost:5000/api';
+
 
 async function loadSolvedProblems() {
     //get the token from local storage
@@ -27,10 +26,7 @@ function loadUserDetails(user) {
     loadSolvedProblems();
 }
 
-const onLogoutClick = async () => {
-    await chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: null });
-    location.reload();
-};
+
 
 async function checkAuthentication() {
     let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);

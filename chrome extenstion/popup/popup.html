@@ -28,7 +28,7 @@
             </div>
             <div class="form-submsg">
               <span class="msg">Don't have a account ? </span>
-              <span class="form-submsg-link" id="login-to-signup">Signup</span>
+              <span class="form-submsg-link login-to-signup" >Signup</span>
             </div>
           </form>
           <form id="signup-form" action="" class="form hidden">
@@ -41,7 +41,7 @@
             </div>
             <div class="form-submsg">
               <span class="msg">Already have a account ? </span>
-              <span class="form-submsg-link" id="singup-to-login">Login</span>
+              <span class="form-submsg-link singup-to-login">Login</span>
             </div>
           </form>
           <form id="otp-form" action="" class="form hidden">
@@ -51,7 +51,7 @@
               <button type="submit" class="login-btn">Verify</button>
             </div>
             <div class="form-submsg">
-              <span class="form-submsg-link" id="singup-to-login">Change email ?</span>
+              <span class="form-submsg-link singup-to-login">Change email ?</span>
             </div>
           </form>
           <div class="error-text-container display-flex h-center v-center text-align-center margin-top-12 hidden">
@@ -78,7 +78,10 @@
     </div>
     <div data-include="../templates/loader.html"></div>
     <script src="./scripts/includeHTML.js"></script>
-    <script src="./scripts/main.js" defer></script>
+    <script src="./scripts/commonFunctions.js"></script>
     <script src="./scripts/networkHandler.js" defer></script>
+    <script src="./scripts/eventHandlers.js"></script>
+    <script src="./scripts/eventRegister.js"></script>
+    <script src="./scripts/auth.js" defer></script>
   </body>
 </html>
