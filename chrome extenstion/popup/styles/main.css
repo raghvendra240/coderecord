@@ -120,3 +120,41 @@ body {
 .error-text-container img {
   width: 16px;
 }
+
+.separator {
+  width: 80%;
+  height: 1px;
+  background-color: #2d2d2d;
+  margin: 15px auto;
+}
+.badge-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.badge-container {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: #fff;
+  background: green;
+  overflow: hidden;
+  min-width: 40%;
+  
+}
+
+.badge-container .icon {
+   font-size: 24px;
+    margin-right: 10px;
+    width: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge-container .text {
+  display: block;
+  font-size: 16px;
+  text-align: center;
+}

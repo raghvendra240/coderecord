@@ -20,10 +20,11 @@ async function onFormSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
-    const data = {};
+    let data = {};
     for (let [key, value] of formData) {
         data[key] = value;
     }
+    data = { ...data, ...problemObj , platformName: "leetcode", submittedDate: Date.now() };
     const token = await getToken();
     if (!token) {
         return;
@@ -39,7 +40,9 @@ async function onFormSubmit(event) {
     try {
         const response = await fetch(`${BASE_URL}/solved-problems`, config);
         const result = await response.json();
-        console.log(result);
+        if(!result.success) {
+           throw new Error(result.error);
+        }
     } catch (error) {
         console.log(error);
     }
@@ -173,14 +176,14 @@ function getModal() {
     const dateInput = document.createElement("input");
     dateInput.setAttribute("type", "date");
     dateInput.setAttribute("id", "date");
-    dateInput.setAttribute("name", "date");
+    dateInput.setAttribute("name", "reminderDate");
     form.appendChild(dateLabel);
     form.appendChild(dateInput);
 
     // create textarea element
     const textarea = document.createElement("textarea");
     textarea.setAttribute("id", "hint");
-    textarea.setAttribute("name", "notes");
+    textarea.setAttribute("name", "problemHint");
     textarea.setAttribute("spellcheck", "false");
   
     // create button element
