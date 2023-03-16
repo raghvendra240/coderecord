@@ -10,6 +10,7 @@ router.post('/verify-otp', userController.verifyOTP);
 
 //Private routes
 router.get('/me', authenticateMW, userController.getMe);
+router.post('/update-silent-mode', authenticateMW, userController.updateSilentMode);
 
 
 module.exports = router;

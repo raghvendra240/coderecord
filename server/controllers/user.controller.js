@@ -96,3 +96,26 @@ exports.getMe = async (req, res) => {
   }
 }
 
+exports.updateSilentMode = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    const { silentMode } = req.body;
+    user.silentMode = silentMode;
+    await user.save();
+    res.status(200).send({
+      success: true,
+      message: 'User updated successfully',
+      data: [],
+      err: [],
+    });
+  } catch (error) {
+    console.log("Error while updating user", error);
+    res.status(500).send({
+      success: false,
+      message: 'Error while updating user',
+      data: [],
+      err: [error],
+    });
+  }
+}
+

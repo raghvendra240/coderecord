@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   isVerified: { type: Boolean, required: true , default: false},
+  silentMode: { type: Boolean, required: true , default: false},
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
