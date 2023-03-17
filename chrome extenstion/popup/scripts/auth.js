@@ -37,6 +37,12 @@ function loadAuthenticatedBlock (userData) {
     document.querySelector('.authenticated').style.display = 'block';
     loadUserDetails(userData);
     document.querySelector('.log-out-btn').addEventListener('click', onLogoutClick);
+    if (userData['silentMode']) {
+        setSilentMode();
+    } else {
+        removeSilentMode();
+    }
+    document.querySelector('.silent-mode-switch').addEventListener('change', onSilentModeChange);
 }
 
 function loadNotAuthenticatedBlock () {

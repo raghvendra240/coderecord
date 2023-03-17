@@ -28,4 +28,27 @@ const onLoginSuccess = (token, user) => {
     });
 }
 
+/* -----------------SILENT MODE--------*/
+function setSilentMode() {
+    document.querySelector('.silent-mode-switch').checked = true;
+    document.querySelector('.silent-mode-text').textContent = 'Silent Mode On';
+}
+function removeSilentMode() {
+    document.querySelector('.silent-mode-switch').checked = false;
+    document.querySelector('.silent-mode-text').textContent = 'Silent Mode Off';
+}
 
+async function silentModeUpdateRequest(token, silentMode) {
+    const url = `${BASE_URL}/users/silent-mode`;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    const body = JSON.stringify({ silentMode: silentMode });
+    const res = await fetch(url, {
+        method: 'PATCH',
+        headers: headers,
+        body: body
+    });
+    return res.json();
+}
