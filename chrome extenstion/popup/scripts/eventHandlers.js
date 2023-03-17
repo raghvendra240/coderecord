@@ -53,16 +53,16 @@ async function onSilentModeChange(event) {
     document.querySelector('.silent-mode-wrapper').classList.add('cursor-not-allowed');
     const silentMode = event.target.checked;
     try {
+        const response = await silentModeUpdateRequest(silentMode);
+        if (!response.success) {
+            throw new Error('Error in silent mode update');
+        }
         let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
         localData = localData[LOCAL_STORAGE_KEY];
         localData['user']['silentMode'] = silentMode;
         chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: localData }, () => {
             console.log('Silent mode updated');
         });
-        const response = await silentModeUpdateRequest(localData['token'], silentMode);
-        if (!response.success) {
-            throw new Error('Error in silent mode update');
-        }
     } catch (error) {
         console.log("Error in silent mode update", error)
     } finally {

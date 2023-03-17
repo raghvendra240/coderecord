@@ -1,12 +1,12 @@
 
-const getAuthHeader = async () => {
+const getToken = async () => {
     let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
     localData = localData[LOCAL_STORAGE_KEY];
     if (!localData || !localData.token) {
        return;
     }
 
-    return { Authorization: `Bearer ${localData.token}` };
+    return localData.token;
 }
 
 const loginNWRequest = async (email, password) => {
@@ -32,6 +32,21 @@ const loginNWRequest = async (email, password) => {
         console.log(error);
         return {error: true};
     }
+}
+
+async function silentModeUpdateRequest(silentMode) {
+    const url = `${BASE_URL}/users/silent-mode`;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${await getToken()}`
+    }
+    const body = JSON.stringify({ silentMode: silentMode });
+    const res = await fetch(url, {
+        method: 'PATCH',
+        headers: headers,
+        body: body
+    });
+    return res.json();
 }
 
 
