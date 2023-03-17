@@ -31,3 +31,16 @@ const formHandler = {
     'signup-form': signupHandler,
     'otp-form': otpHandler,
 }
+
+
+/*----------SWITCH---------------------- */
+function switchToSignup(event) {
+    event.preventDefault();
+    document.querySelector('#login-form').style.display = 'none';
+    document.querySelector('#signup-form').style.display = 'flex';
+}
+function switchToLogin(event) {
+    event.preventDefault();
+    document.querySelector('#login-form').style.display = 'flex';
+    document.querySelector('#signup-form').style.display = 'none';
+}

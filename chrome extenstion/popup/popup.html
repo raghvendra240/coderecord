@@ -5,12 +5,13 @@
     <title>My Extension Popup</title>
     <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="./styles/common.css" />
+    <link rel="stylesheet" href="./styles/loader.css">
   </head>
   <body>
     <div class="container">
       <div data-include="./templates/header.html"></div>
       <div class="body-section">
-        <div class="not-authenticated">
+        <div class="not-authenticated hidden">
           <div class="display-flex h-center v-align">
             <img
               class="warning-icon"
@@ -109,7 +110,6 @@
         </div>
       </div>
     </div>
-    <div data-include="../templates/loader.html"></div>
     <script src="./scripts/includeHTML.js"></script>
     <script src="./scripts/commonFunctions.js"></script>
     <script src="./scripts/networkHandler.js" defer></script>

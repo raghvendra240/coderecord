@@ -32,32 +32,44 @@ function loadUserDetails(user) {
     loadSolvedProblems();
 }
 
+function loadAuthenticatedBlock (userData) {
+    document.querySelector('.not-authenticated').style.display = 'none';
+    document.querySelector('.authenticated').style.display = 'block';
+    loadUserDetails(userData);
+    document.querySelector('.log-out-btn').addEventListener('click', onLogoutClick);
+}
+
+function loadNotAuthenticatedBlock () {
+    document.querySelector('.not-authenticated').style.display = 'block';
+    document.querySelector('.authenticated').style.display = 'none';
+    document.querySelector('.login-to-signup').addEventListener('click', switchToSignup);
+    document.querySelector('.singup-to-login').addEventListener('click', switchToLogin);
+}
+
 
 
 async function checkAuthentication() {
-    let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
-    localData = localData[LOCAL_STORAGE_KEY];
-    if (!localData || !localData.token) {
-       document.querySelector('.not-authenticated').style.display = 'block';
-       document.querySelector('.authenticated').style.display = 'none';
-       return;
+    try {
+        let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
+        localData = localData[LOCAL_STORAGE_KEY];
+        if (!localData || !localData.token) {
+           throw new Error('No token found');
+        }
+    
+        const config = {
+            headers: { Authorization: `Bearer ${localData.token}` }
+        };
+        let response = await fetch(`${BASE_URL}/users/me`, config);
+        response = await response.json();
+        if (!response.success) {
+           throw new Error('Invalid Token or user');
+        }
+        loadAuthenticatedBlock(response.data);
+    } catch (err) {
+        console.log(err);
+        loadNotAuthenticatedBlock();
     }
-
-    const config = {
-        headers: { Authorization: `Bearer ${localData.token}` }
-    };
-    let response = await fetch(`${BASE_URL}/users/me`, config);
-    response = await response.json();
-    if (!response.success) {
-        document.querySelector('.not-authenticated').style.display = 'block';
-        document.querySelector('.authenticated').style.display = 'none';
-        return;
-    }
-    document.querySelector('.not-authenticated').style.display = 'none';
-    document.querySelector('.authenticated').style.display = 'block';
-    const logoutBtn = document.querySelector('.log-out-btn');
-    logoutBtn.addEventListener('click', onLogoutClick);
-    loadUserDetails(response.data);
+   
 }
 
 checkAuthentication();

@@ -1,12 +1,13 @@
 
 /*-----------FORM EVENT LISTENER------------ */
 
-const form = document.getElementsByClassName("form")[0];
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    clearError();
-    formHandler[event.target.id](event.target);
-  });
+document.querySelectorAll('.form').forEach(form => {
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        clearError();
+        formHandler[event.target.id](event.target);
+    });
+});
 
 
   /*-----------------CUSTOM EVENT LISTENER------------*/
