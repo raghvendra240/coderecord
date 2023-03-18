@@ -74,6 +74,8 @@ async function checkAuthentication() {
     } catch (err) {
         console.log(err);
         loadNotAuthenticatedBlock();
+    } finally {
+        document.querySelector('.page-loader-wrapper').style.display = 'none';
     }
    
 }
