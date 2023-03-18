@@ -1,4 +1,6 @@
 
+const LOCAL_STORAGE_KEY = 'coderecordUserData';
+const BASE_URL = "http://localhost:5000/api";
 
 function checkIfSubmitButton(el) {
   const isSubmitButton =
@@ -22,7 +24,7 @@ function getProblemName(problemId) {
     .join(" ");
 }
 
-function submittedProblemHandler(problemId) {
+function submittedProblemHandler(problemId, userData) {
   const problemUrl = getProblemUrl(problemId);
   const problemName = getProblemName(problemId);
   const problem = {
@@ -30,39 +32,69 @@ function submittedProblemHandler(problemId) {
     problemUrl,
     problemName,
   };
-  chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: problem });
+  chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: problem, isSilentMode: userData.silentMode });
 }
 
-document.addEventListener("click", function (e) {
-  const oldPath = window.location.pathname;
-  if (e && e.target && checkIfSubmitButton(e.target)) {
-    const problemId = window.location.pathname.split("/")[2];
-    // const submissionUrl  = `/problems/${submissionID}/submissions`;
-    // const submissionButton = document.querySelector(`a[href="${submissionUrl}"] div`);
-    let targetNode = e.target;
-    const observer = new MutationObserver((mutationsList, observer) => {
-      for (let mutation of mutationsList) {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "class"
-        ) {
-          observer.disconnect(); // Disconnect the observer since we no longer need it
-          console.log("Mutated");
-          setTimeout(() => {
-            const currentPath = window.location.pathname;
-            const submissionId = currentPath.split("submissions")[1];
-            if (!submissionId) return;
-            submittedProblemHandler(problemId);
-          }, 0);
-          break;
-        }
-      }
-    });
-    console.log("Observer added");
-    const config = { attributes: true };
-    observer.observe(targetNode, config);
-  }
-});
+const getAuthObject = async () => {
+  let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
+    localData = localData[LOCAL_STORAGE_KEY];
+    if (!localData || !localData.token) {
+       return;
+    }
 
-// chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: {} });
+    const config = {
+      headers: { Authorization: `Bearer ${localData.token}` }
+    };
+    let response = await fetch(`${BASE_URL}/users/me`, config);
+    response = await response.json();
+    if(!response.success) {
+      return;
+    }
+    return {
+      token: localData.token,
+      user: response.data
+    }
+}
+
+function addSubmitListener(userData) {
+  document.addEventListener("click", function (e) {
+    const oldPath = window.location.pathname;
+    if (e && e.target && checkIfSubmitButton(e.target)) {
+      const problemId = window.location.pathname.split("/")[2];
+      // const submissionUrl  = `/problems/${submissionID}/submissions`;
+      // const submissionButton = document.querySelector(`a[href="${submissionUrl}"] div`);
+      let targetNode = e.target;
+      const observer = new MutationObserver((mutationsList, observer) => {
+        for (let mutation of mutationsList) {
+          if (
+            mutation.type === "attributes" &&
+            mutation.attributeName === "class"
+          ) {
+            observer.disconnect(); // Disconnect the observer since we no longer need it
+            console.log("Mutated");
+            setTimeout(() => {
+              const currentPath = window.location.pathname;
+              const submissionId = currentPath.split("submissions")[1];
+              if (!submissionId) return;
+              submittedProblemHandler(problemId, userData);
+            }, 0);
+            break;
+          }
+        }
+      });
+      console.log("Observer added");
+      const config = { attributes: true };
+      observer.observe(targetNode, config);
+    }
+  });
+}
+
+async function onLoad() {
+  const authObject = await getAuthObject();
+  if (authObject) {
+    addSubmitListener(authObject.user)
+  }
+}
+
+onLoad();
 

@@ -24,11 +24,9 @@ const SolvedProblemSchema = new mongoose.Schema({
   },
   reminderDate: {
     type: Date,
-    required: true,
   },
   problemHint: {
     type: String,
-    required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,

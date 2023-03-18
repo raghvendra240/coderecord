@@ -1,10 +1,39 @@
-const LOCAL_STORAGE_KEY = 'coderecordUserData';
-const BASE_URL = "http://localhost:5000/api";
 let problemObj = null;
 
 function closePopup() {
     const popup = document.querySelector(".popup");
-    popup.style.display = "none";
+    popup.remove();
+}
+
+function setToaster(message = "Problem submitted successfully!", color = 'green') {
+  // create the main container
+  const toaster = document.createElement("div");
+  toaster.classList.add("toaster", color);
+
+  // create the message element
+  const messageElement = document.createElement("p");
+  messageElement.classList.add("message");
+  messageElement.innerText = message;
+  toaster.appendChild(messageElement);
+
+  // create the close button
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("close-button");
+  closeButton.innerHTML = "&times;";
+  toaster.appendChild(closeButton);
+
+  // add event listener to close the toaster when the close button is clicked
+  closeButton.addEventListener("click", function() {
+    toaster.remove();
+  });
+
+    // add the toaster to the DOM
+    document.body.appendChild(toaster);
+
+  // Remove the toaster
+  setTimeout(function() {
+    toaster.remove();
+  }, 5000);
 }
 
 async function getToken() {
@@ -16,15 +45,25 @@ async function getToken() {
     return localData.token;
 }
 
-async function onFormSubmit(event) {
+function getFormData(event) {
     event.preventDefault();
+    document.querySelector('.button-text').classList.add('hidden');
+    document.querySelector('.button-loader').classList.remove('hidden');
     const form = event.target;
     const formData = new FormData(form);
     let data = {};
     for (let [key, value] of formData) {
         data[key] = value;
     }
-    data = { ...data, ...problemObj , platformName: "leetcode", submittedDate: Date.now() };
+    return data;
+}
+
+async function submitProblem(event) {
+    let formData = {};
+    if (event) {
+      formData = getFormData(event);
+    }
+    const data = { ...formData, ...problemObj , platformName: "leetcode", submittedDate: Date.now() };
     const token = await getToken();
     if (!token) {
         return;
@@ -43,14 +82,16 @@ async function onFormSubmit(event) {
         if(!result.success) {
            throw new Error(result.error);
         }
+        setToaster();
     } catch (error) {
         console.log(error);
+        setToaster('Something went wrong!', 'red')
+    } finally {
+      document.querySelector('.button-text').classList.remove('hidden');
+      document.querySelector('.button-loader').classList.add('hidden');
+      closePopup();
     }
-   
-  //   fetch('http://localhost:5000/')
-  // .then(response => console.log(response))
-  // .catch(error => console.error(error));
-
+  
 }
 
 function getModal() {
@@ -188,8 +229,18 @@ function getModal() {
   
     // create button element
     const button = document.createElement("button");
+    button.style.width = "106px";
     button.setAttribute("type", "submit");
-    button.textContent = "Submit";
+    const buttonContent = document.createElement("div");
+    const buttonText = document.createElement("span");
+    buttonText.classList.add("button-text");
+    buttonText.textContent = "Submit";
+    const buttonLoader = document.createElement("div");
+    buttonLoader.classList.add('loader', 'button-loader', 'hidden');
+    buttonContent.appendChild(buttonText);
+    buttonContent.appendChild(buttonLoader);
+    button.appendChild(buttonContent);
+
   
     // append label, textarea, and button to form
     form.appendChild(label);
@@ -197,12 +248,13 @@ function getModal() {
     form.appendChild(button);
     popupBody.appendChild(form);
 
-    form.addEventListener("submit", onFormSubmit);
+    form.addEventListener("submit", submitProblem);
   
     const notesLabel = document.createElement;
     return popup;
   }
-  const css = `.popup {
+  const css = `
+  .popup {
     display: none;
     position: fixed;
     top: 0;
@@ -421,13 +473,111 @@ function getModal() {
       padding: 5px;
       cursor: pointer;
   }
+
+  .loader, .loader:after {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+}
+.loader {
+  margin: 0 auto;
+  font-size: 10px;
+  text-indent: -9999em;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  border-left: 2px solid #ffffff;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+  .hidden {
+    display: none;
+  }
+
+  .toaster {
+    display: flex;
+    gap: 10px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #2ecc71;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+  }
+  .toaster.red {
+    background-color: #ff3d00
+  }
+  
+  .toaster .message {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .toaster .close-button {
+    background-color: #ffffff;
+    border: none;
+    color: #2ecc71;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .toaster.show {
+    display: block;
+    animation: slide-in 0.5s ease-in-out forwards;
+  }
+  
+  @keyframes slide-in {
+    0% {
+      transform: translateY
+  
+ 
   `;
 
-function insertPopupDom({problem}) {
- const style = document.createElement("style");
+
+function insertStyle() {
+  const style = document.createElement("style");
   style.type = "text/css";
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
+}
+
+async function insertPopupDom({problem}) {
   const modal = getModal(problem);
   document.body.appendChild(modal);
 }
@@ -441,7 +591,12 @@ const clearOtherPopups = () => {
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.type == "SHOW_POPUP") {
         clearOtherPopups();
+        insertStyle();
         problemObj = message.problem;
-        insertPopupDom(message);
+        if (message.isSilentMode) {
+          submitProblem();
+        } else {
+          insertPopupDom(message);
+        }
     }
   });

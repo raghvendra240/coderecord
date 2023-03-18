@@ -4,6 +4,7 @@
     "description": "Track your progress, conquer coding challenges, and reach new heights with CodeRecord",
     "version": "1.0",
     "permissions": [
+        "tabs",
         "activeTab",
         "storage",
         "alarms",
