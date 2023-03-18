@@ -38,7 +38,7 @@ export default function App() {
        {(!isAuthenticated || isAuthenticated === 'false') && (<Welcome></Welcome>)}
        {(isAuthenticated === 'true') && (<MainBody></MainBody>)}
        {isAuthenticated === 'true' && getAuthenticatedView(userDetails.userName)}
-      {isAuthenticationModalOpen && <AuthenticationForm closeModalFn={() => {  setAuthenticationModal(false)}}></AuthenticationForm>}
+      {isAuthenticationModalOpen && <AuthenticationForm setAuthenticatedCB={() => {setIsAuthenticated('true');}} closeModalFn={() => {  setAuthenticationModal(false)}}></AuthenticationForm>}
     </div>
   )
 }

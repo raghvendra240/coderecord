@@ -116,13 +116,14 @@ function getForm(formState) {
 
 async function loginHandler(setFormState, formFields) {
   const userData = formFields;
-  const isLoginSuccess = await login(userData)
+  const isLoginSuccess = await login(userData);
+  return isLoginSuccess
 }
 
 function primaryBtnClickHandler(event, formState, setFormState, formFields) {
     event.preventDefault();
     if (formState === formStates.SIGN_IN) {
-        loginHandler(setFormState, formFields);
+        return loginHandler(setFormState, formFields);
     } else if (formState === formStates.SIGN_UP) {
         setFormState(formStates.OTP);
     } else if (formState === formStates.OTP) {
@@ -130,13 +131,15 @@ function primaryBtnClickHandler(event, formState, setFormState, formFields) {
     }
 }
 
-export default function AuthenticationForm({currentFormState, closeModalFn}) {
+export default function AuthenticationForm({currentFormState, closeModalFn, setAuthenticatedCB}) {
 //   const userEmail = "dashjv@gmai.com";
  
   const [formState, setFormState] = useState(currentFormState || formStates.SIGN_IN);
   const [formFields, setFormFields] = useState({});
-  function primaryBtnClickHandlerWrapper(event) {
-    primaryBtnClickHandler(event, formState, setFormState, formFields);
+  async function primaryBtnClickHandlerWrapper(event) {
+    const isOperationSuccessful = await primaryBtnClickHandler(event, formState, setFormState, formFields);
+    closeModalFn();
+    isOperationSuccessful && setAuthenticatedCB(true);
   }
   // eslint-disable-next-line no-func-assign
   primaryBtnClickHandlerWrapper = primaryBtnClickHandlerWrapper.bind(this);
