@@ -15,5 +15,101 @@
     }
 
    }
+
+   /*--------TEMP CHANGES-----------------------*/
    
-   
+  .solved-problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.problem-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #ffc100;
+    // .problem-action-button {
+    //     background: #fd4b0f 
+    // }
+  }
+  img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+}
+
+.platform-icon {
+  font-size: 2rem;
+  color: #fc8003;
+}
+
+.problem-details {
+  flex-grow: 1;
+  margin: 0 1rem;
+}
+
+.problem-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.problem-submission-date {
+  font-size: 0.9rem;
+  color: #888;
+  
+}
+
+.problem-action {
+  margin-left: 1rem;
+}
+
+.problem-action-button {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.problem-card h3 {
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 4px;
+  }
+  
+  .problem-card span {
+    font-size: 12px;
+    margin-right: 10px;
+  }
+  
+  .problem-card button {
+    background-color: #ff9500;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .problem-card button:hover {
+    color: #fff;
+    background-color: #ff4d00;
+  }

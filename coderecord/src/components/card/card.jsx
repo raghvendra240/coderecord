@@ -1,18 +1,34 @@
-import React from 'react'
+
 import './card.scss'
-import '../../assets/styles/common.scss'
 import gfgLogo from '../../assets/images/gfg_icon.png'
 import leetcodeLogo from '../../assets/images/leetcode_icon_2.png'
-import { LEETCODE, GFG } from '../../utils/globalConstants'
+import React from 'react';
 
-export default function Card({solvedProblemInfo}) {
-  return (
-        <div class="card">
-            <img className='image' src={solvedProblemInfo.platformName === LEETCODE ? leetcodeLogo : gfgLogo} alt="" />
-            <div className=''>
-                <div>{solvedProblemInfo.problemName}</div>
-                <div>Submitted on 09/03/203</div>
+const Card = ({ problems }) => {
+    return (
+        <div className="solved-problems-list">
+      {problems.map((problem) => {
+        const platformIcon = gfgLogo;
+
+        return (
+          <div className="problem-card" key={problem._id}>
+            <div className="platform-icon">
+                <img className="platform-icon" src={platformIcon} alt="" srcset="" />
             </div>
-        </div>
-     )
-}
+            <div className="problem-details">
+              <div className="problem-name">{problem.problemName}</div>
+              <div className="problem-submission-date">{problem.submissionDate || "29th March 2023"}</div>
+            </div>
+            <div className="problem-action">
+              <a href={problem.problemUrl} target="_blank" rel="noopener noreferrer">
+                <button className="problem-action-button">Solve Again</button>
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+      );
+};
+
+export default Card;

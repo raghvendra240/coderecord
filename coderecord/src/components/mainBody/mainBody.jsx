@@ -28,7 +28,8 @@ export default function MainBody() {
   return (
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
-      {solvedProblems.map((problem) => { return <Card solvedProblemInfo={problem} key={problem._id}></Card>})}
+      <Card problems={solvedProblems}></Card>
+      {/* {solvedProblems.map((problem) => { return <Card solvedProblemInfo={problem} key={problem._id}></Card>})} */}
     </div>
   )
 }
