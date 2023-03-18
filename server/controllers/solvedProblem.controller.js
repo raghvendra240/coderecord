@@ -4,7 +4,7 @@ const { default: mongoose } = require("mongoose");
 
 module.exports.getSolvedProblems = async (req, res) => {
     try {
-        const solvedProblems = await SolvedProblem.find({ userId: req.userId }).select('platformName problemName problemUrl');
+        const solvedProblems = await SolvedProblem.find({ userId: req.userId }).select('platformName problemName problemUrl submittedDate');
         res.status(200).json({
             success: true,
             message: 'Solved problems fetched successfully',

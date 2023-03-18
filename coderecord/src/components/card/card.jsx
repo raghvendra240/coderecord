@@ -4,6 +4,14 @@ import gfgLogo from '../../assets/images/gfg_icon.png'
 import leetcodeLogo from '../../assets/images/leetcode_icon_2.png'
 import React from 'react';
 
+function getFormattedDate(date) {
+  const dateObj = new Date(date);
+  const month = dateObj.toLocaleString('default', { month: 'long' });
+  const day = dateObj.getDate();
+  const year = dateObj.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
 const Card = ({ problems }) => {
     return (
         <div className="solved-problems-list">
@@ -17,7 +25,7 @@ const Card = ({ problems }) => {
             </div>
             <div className="problem-details">
               <div className="problem-name">{problem.problemName}</div>
-              <div className="problem-submission-date">{problem.submissionDate || "29th March 2023"}</div>
+              <div className="problem-submission-date">{getFormattedDate(problem.submittedDate)}</div>
             </div>
             <div className="problem-action">
               <a href={problem.problemUrl} target="_blank" rel="noopener noreferrer">
