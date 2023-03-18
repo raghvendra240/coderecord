@@ -3,7 +3,7 @@ import { LOCAL_STORAGE_KEY } from '../utils/globalConstants';
 
 // const chromep = ChromePromise();
 
-export const saveLocalData = (data) => {
+export const saveLocalData = (data = {}) => {
     const str = JSON.stringify(data);
     return localStorage.setItem(LOCAL_STORAGE_KEY, str);
 }

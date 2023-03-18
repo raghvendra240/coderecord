@@ -31,10 +31,10 @@ export default function App() {
     };
 
     fetchUserInfo();
-  })
+  }, [isAuthenticated])
   return (
     <div className="app-body">
-       <Header userDetails={userDetails} authenticationModalHandler={setAuthenticationModal}></Header>
+       <Header userDetails={userDetails} authenticationModalHandler={setAuthenticationModal} setAuthenticatedCB={(value) => {setIsAuthenticated(value);}} ></Header>
        {(!isAuthenticated || isAuthenticated === 'false') && (<Welcome></Welcome>)}
        {(isAuthenticated === 'true') && (<MainBody></MainBody>)}
        {isAuthenticated === 'true' && getAuthenticatedView(userDetails.userName)}
