@@ -163,6 +163,10 @@ body {
   width: 100%;
 
 }
+.reminder-list {
+  padding: 0 15px;
+  margin-top: 18px;
+}
 
 .reminder-header {
   display: flex;
@@ -175,9 +179,15 @@ body {
   font-size: 16px;
 }
 .reminder-item {
+  margin-bottom: 8px;
+  display: block;
   font-size: 14px;
   color: white;
   text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .reminder-item:hover {
   color: gray;

@@ -49,6 +49,19 @@ async function silentModeUpdateRequest(silentMode) {
     return res.json();
 }
 
+const getReminders = async () => {
+    const url = `${BASE_URL}/users/reminders`;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${await getToken()}`
+    }
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: headers
+    });
+    return res.json();
+}
+
 
 
 

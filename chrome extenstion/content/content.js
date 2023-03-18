@@ -15,7 +15,7 @@ function checkIfSubmitButton(el) {
 }
 
 function getProblemUrl(problemId) {
-  return `leetcode.com/problems/${problemId}`;
+  return `https://leetcode.com/problems/${problemId}`;
 }
 function getProblemName(problemId) {
   return problemId

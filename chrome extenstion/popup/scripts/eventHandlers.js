@@ -71,3 +71,11 @@ async function onSilentModeChange(event) {
         document.querySelector('.silent-mode-loader').style.display = 'none';
     }
 }
+
+/*---------------------Reminder click-------------- */
+async function onReminderClick(event) {
+    const reminderDOM = event.target;
+    const url = reminderDOM.getAttribute('data-url');
+    chrome.tabs.create({ url});
+
+}

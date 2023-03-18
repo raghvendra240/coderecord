@@ -1,4 +1,22 @@
 
+async function loadReminders() {
+    const reminders = await getReminders();
+    if (!reminders.success) {
+        return;
+    }
+    document.querySelector('.reminder-section').classList.remove('hidden');
+    const reminderList = document.querySelector('.reminder-list');
+    const reminderItemTemplate = document.querySelector('#reminder-item-template');
+    reminders.data.forEach(reminder => {
+        const reminderItem = reminderItemTemplate.content.cloneNode(true);
+        const reminderItemContainer = reminderItem.querySelector('.reminder-item');
+        reminderItemContainer.textContent = reminder.problemName;
+        reminderItemContainer.setAttribute('data-url', reminder.problemUrl);
+        reminderItemContainer.addEventListener('click', onReminderClick);
+
+        reminderList.appendChild(reminderItem);
+    });
+}
 
 async function loadSolvedProblems() {
     //get the token from local storage
@@ -43,6 +61,7 @@ function loadAuthenticatedBlock (userData) {
         removeSilentMode();
     }
     document.querySelector('.silent-mode-switch').addEventListener('change', onSilentModeChange);
+    loadReminders();
 }
 
 function loadNotAuthenticatedBlock () {
