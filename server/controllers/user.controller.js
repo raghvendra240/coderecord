@@ -12,16 +12,16 @@ exports.createUser = async (req, res) => {
     session.startTransaction();
 
     const user = new User(req.body);
-    const createdUser = await user.save({session});
+    // const createdUser = await user.save({session});
     /*--------KEPT OTP SERVICE AT HOLD */
-    // const otp = getNewOTP();
+    const otp = getNewOTP();
     // const otpDoc = new OTP({
     //   userId: createdUser._id,
     //   otp: otp,
     //   createdAt: Date.now()
     // });
     // await otpDoc.save({session});
-    // await sendOTPService(createdUser.email, otp);
+    await sendOTPService(req.body.email, otp, req.body.firstName);
     await session.commitTransaction();
     res.status(201).send({
         success: true,

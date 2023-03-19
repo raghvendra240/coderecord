@@ -8,10 +8,10 @@ module.exports = {
     dbName: process.env.DB_NAME,
     PORT: process.env.PORT,
     OTP_EXPIRES_IN: process.env.OTP_EXPIRES_IN,
-    EMAIL: process.env.EMAIL,
     EMAIL_CLIENT_ID: process.env.EMAIL_CLIENT_ID,
     EMAIL_CLIENT_SECRET: process.env.EMAIL_CLIENT_SECRET,
-    EMAIL_CLIENT_REDIRECT_URI: process.env.EMAIL_CLIENT_REDIRECT_URI,
+    EMAIL_CLIENT_REDIRECT_URI: process.env.EMAIL_REDIRECT_URI,
     EMAIL_REFRESH_TOKEN: process.env.EMAIL_REFRESH_TOKEN,
     JWT_SECRET: process.env.JWT_SECRET,
+    EMAIL: process.env.CLIENT_EMAIL,
 }
