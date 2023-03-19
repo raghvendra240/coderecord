@@ -21,11 +21,12 @@ exports.createUser = async (req, res) => {
     //   createdAt: Date.now()
     // });
     // await otpDoc.save({session});
-    await sendOTPService(req.body.email, otp, req.body.firstName);
+    // await sendOTPService(req.body.email, otp, req.body.firstName);
     await session.commitTransaction();
     res.status(201).send({
         success: true,
         message: 'User created successfully',
+        OTP: otp,
     });
   } catch (error) {
     if(session) {
