@@ -12,21 +12,19 @@ exports.createUser = async (req, res) => {
     session.startTransaction();
 
     const user = new User(req.body);
-    // const createdUser = await user.save({session});
-    /*--------KEPT OTP SERVICE AT HOLD */
+    const createdUser = await user.save({session});
     const otp = getNewOTP();
-    // const otpDoc = new OTP({
-    //   userId: createdUser._id,
-    //   otp: otp,
-    //   createdAt: Date.now()
-    // });
-    // await otpDoc.save({session});
-    // await sendOTPService(req.body.email, otp, req.body.firstName);
+    const otpDoc = new OTP({
+      userId: createdUser._id,
+      otp: otp,
+    });
+    const otpSaveResponse  = await otpDoc.save({session});
+    await sendOTPService(req.body.email, otp, req.body.firstName);
     await session.commitTransaction();
     res.status(201).send({
         success: true,
-        message: 'User created successfully',
-        OTP: otp,
+        message: 'User verification pending',
+        userId: user._id,
     });
   } catch (error) {
     if(session) {
@@ -55,11 +53,11 @@ exports.loginUser = async (req, res) => {
     }
 
     const token = await user.generateAuthToken();
-    const {password: userPassword, createdAt, updatedAt , isVerified, ...userWithoutPassword} = user._doc;
+    const filteredUserDetails = user.getFilteredUserDetails(user._doc);
     res.status(200).send({
       success: true,
       message: 'User logged in successfully',
-      data: { user: userWithoutPassword, token },
+      data: { user: filteredUserDetails, token },
       err: [],
     });
   } catch (error) {
@@ -74,6 +72,36 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.verifyOTP = async (req, res) => {
+  try {
+    const { otp, userId } = req.body;
+    const otpResponse = await OTP.findOne({ 'userId': new mongoose.Types.ObjectId(userId)  });
+    if (!otpResponse) {
+      throw new Error('OTP not found');
+    }
+    if (otpResponse.otp !== otp) {
+      throw new Error('Invalid OTP');
+    }
+    const user = await User.findOneAndUpdate({ _id: userId }, { isVerified: true });
+    const token = await user.generateAuthToken();
+    res.status(200).send({
+      success: true,
+      message: 'OTP verified successfully',
+      data: {
+        token: token,
+        user: user.getFilteredUserDetails(),
+      },
+      err: [],
+    });
+    
+  } catch (error) {
+    console.log("Error occurred while creating user", error);
+    res.status(400).send({
+      success: false,
+      message: 'Error occurred while verifying OTP',
+      data: [],
+      err: [error],
+    })
+  }
 
 };
 

@@ -1,5 +1,5 @@
 const emailService = require('./emailService');
-const {OTP_EXPIRES_IN} = require('../config/serverConfig');
+const {OTP_EXPIRES_IN_MINUTES} = require('../config/serverConfig');
 
 const getEmailBody = (otp, userName) => {
     return `
@@ -11,7 +11,7 @@ const getEmailBody = (otp, userName) => {
     <br>
     <div style="font-size: 20px; font-weight: bold; text-align: center;">${otp}</div>
     <br>
-    <p>Please enter this OTP within the next ${OTP_EXPIRES_IN/(1000 * 60)} minutes to complete your account registration.</p>
+    <p>Please enter this OTP within the next ${OTP_EXPIRES_IN_MINUTES} minutes to complete your account registration.</p>
     <br>
      <p>Please ignore this email if you did not sign up for CodeRecord.</p>
     <br>

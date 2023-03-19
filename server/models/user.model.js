@@ -63,4 +63,17 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 }
 
+userSchema.methods.getFilteredUserDetails = function (user) {
+  user  = user || this
+  const filteredUser = {
+    _id: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    isVerified: user.isVerified,
+    silentMode: user.silentMode,
+  }
+  return filteredUser;
+}
+
 module.exports = mongoose.model('User', userSchema);

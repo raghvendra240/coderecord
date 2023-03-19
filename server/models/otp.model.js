@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {OTP_EXPIRES_IN} = require('../config/serverConfig');
+const {OTP_EXPIRES_IN_MINUTES} = require('../config/serverConfig');
 
 const otpSchema = new mongoose.Schema({
   userId: {
@@ -15,10 +15,10 @@ const otpSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: OTP_EXPIRES_IN || (15 * 60 * 1000)
   }
-});
+}, { timestamps: true });
 
+otpSchema.index({ createdAt: 1 }, { expireAfterSeconds: 120 });
 
 const OTP = mongoose.model('OTP', otpSchema);
 

@@ -7,7 +7,7 @@ module.exports = {
     dbPassword: process.env.DB_PASSWORD,
     dbName: process.env.DB_NAME,
     PORT: process.env.PORT,
-    OTP_EXPIRES_IN: process.env.OTP_EXPIRES_IN,
+    OTP_EXPIRES_IN_MINUTES: process.env.OTP_EXPIRES_IN_MINUTES,
     EMAIL_CLIENT_ID: process.env.EMAIL_CLIENT_ID,
     EMAIL_CLIENT_SECRET: process.env.EMAIL_CLIENT_SECRET,
     EMAIL_CLIENT_REDIRECT_URI: process.env.EMAIL_REDIRECT_URI,
