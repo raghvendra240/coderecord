@@ -79,3 +79,12 @@ async function onReminderClick(event) {
     chrome.tabs.create({ url});
 
 }
+
+/*---------------------Dashboard btn click-------------- */
+
+async function onDashboardClick(event) {
+    event.preventDefault();
+    const token = await getToken();
+    const url = `http://localhost:3000/?token=${token}`;
+    chrome.tabs.create({ url});
+}

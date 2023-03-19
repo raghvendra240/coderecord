@@ -37,3 +37,9 @@ function removeSilentMode() {
     document.querySelector('.silent-mode-switch').checked = false;
     document.querySelector('.silent-mode-text').textContent = 'Silent Mode Off';
 }
+
+/* Token related */
+const getToken = async () => {
+    const localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
+    return localData[LOCAL_STORAGE_KEY]['token'];
+}

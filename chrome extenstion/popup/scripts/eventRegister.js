@@ -16,6 +16,6 @@ document.querySelectorAll('.form').forEach(form => {
   });
 
 
-    /*-----------------Switch between login and signup--------*/
-
+    /*-----------------Dashboard BTN--------*/
+    document.querySelector('.dashboard-btn').addEventListener('click', onDashboardClick);
 
