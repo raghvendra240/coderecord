@@ -75,11 +75,16 @@ function loadNotAuthenticatedBlock () {
 
 async function checkAuthentication() {
     try {
-        let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
-        localData = localData[LOCAL_STORAGE_KEY];
+        let localData = await getLocalData();
+        if (localData && localData.otpScreenPending) {
+            loadOtpScreen();
+            return;
+        }
         if (!localData || !localData.token) {
            throw new Error('No token found');
         }
+        console.log(localData);
+
     
         const config = {
             headers: { Authorization: `Bearer ${localData.token}` }

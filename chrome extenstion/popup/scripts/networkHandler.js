@@ -24,6 +24,37 @@ const loginNWRequest = async (email, password) => {
     }
 }
 
+const signupNWRequest = async (user) => {
+    try {
+        const response = await fetch(`${BASE_URL}/users`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        return await response.json();
+    } catch (error) {
+        console.log("Error occurred while signUp", error);
+        return {error: error};
+    }
+}
+
+const verifyOtpNWRequest = async (otpData) => {
+    try {
+        const response = await fetch(`${BASE_URL}/users/verify-otp`, { 
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(otpData)
+        })
+        return await response.json();
+    } catch (error) {
+        console.log("Error occurred while verifying otp", error);
+    }
+}
+
 async function silentModeUpdateRequest(silentMode) {
     const url = `${BASE_URL}/users/silent-mode`;
     const headers = {

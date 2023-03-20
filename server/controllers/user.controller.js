@@ -24,7 +24,9 @@ exports.createUser = async (req, res) => {
     res.status(201).send({
         success: true,
         message: 'User verification pending',
-        userId: user._id,
+        data: {
+          userId: user._id,
+        }
     });
   } catch (error) {
     if(session) {

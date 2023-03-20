@@ -14,16 +14,47 @@ const loginHandler = async (form) => {
   if (response.error) {
       setError();
   } else {
-      onLoginSuccess(response.token, response.user);
+      onAuthenticationSuccess(response.token, response.user);
   }
 };
 
 /*-----------------SIGNUP RELATED--------*/
 
-const signupHandler = async (form) => {};
+const signupHandler = async (form) => {
+    const formData = new FormData(form);
+    const password = formData.get('password');
+    const email = formData.get('email');
+    const firstName = formData.get('firstName');
+    const lastName = formData.get('lastName');
+    try {
+        const response = await signupNWRequest({firstName, lastName, email, password});
+        if (!response.success) {
+            throw new Error('Error in signup');
+        }
+        onSignupSuccess(response.data.userId);
+        
+    } catch (error) {
+        setError();
+    }
+};
 
 /*-----------------OTP RELATED--------*/
-const otpHandler = async (form) => {};
+const otpHandler = async (form) => {
+    const formData = new FormData(form);
+    const otp = formData.get('otp');
+    const localData = await getLocalData();
+    const userId = localData.userId;
+    try {
+        const response = await verifyOtpNWRequest({userId, otp});
+        if (!response.success) {
+            throw new Error('Error in otp verification');
+        }
+        await setLocalData({otpScreenPending: false});
+        onAuthenticationSuccess(response.data.token, response.data.user);
+    } catch (error) {
+        setError();
+    }
+};
 
 
 const formHandler = {
@@ -36,13 +67,13 @@ const formHandler = {
 /*----------AUTHENTICATION FORM SWITCH---------------------- */
 function switchToSignup(event) {
     event.preventDefault();
-    document.querySelector('#login-form').style.display = 'none';
-    document.querySelector('#signup-form').style.display = 'flex';
+    document.querySelector('#login-form').classList.add('hidden');
+    document.querySelector('#signup-form').classList.remove('hidden');
 }
 function switchToLogin(event) {
     event.preventDefault();
-    document.querySelector('#login-form').style.display = 'flex';
-    document.querySelector('#signup-form').style.display = 'none';
+    document.querySelector('#login-form').classList.remove('hidden');
+    document.querySelector('#signup-form').classList.add('hidden');
 }
 
 

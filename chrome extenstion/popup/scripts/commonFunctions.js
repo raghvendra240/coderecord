@@ -1,6 +1,21 @@
 const LOCAL_STORAGE_KEY = 'coderecordUserData';
 const BASE_URL = "http://localhost:5000/api";
 
+const getLocalData = async () => {
+    let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
+    return localData[LOCAL_STORAGE_KEY] || {};
+}
+
+const setLocalData = async (data) => {
+    const localData = await getLocalData();
+    const updatedData = {
+        ...localData,
+        ...data
+    }
+    await chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: updatedData });
+}
+
+
 /*-----------------ERROR RELATED--------*/
 const setError = (msg = 'Something went wrong') => {
     const errorContainer = document.querySelector('.error-text-container');
@@ -17,15 +32,27 @@ const clearError = () => {
 
 
 /* -----------------LOGIN RELATED--------*/
-const onLoginSuccess = (token, user) => {
+const onAuthenticationSuccess = async (token, user) => {
     const data = {
         token: token,
         user: user
     }
-    chrome.storage.local.set({ [LOCAL_STORAGE_KEY]: data }, () => {
-        console.log('Token saved in local storage');
-        location.reload();
+    await setLocalData(data);
+    location.reload();
+}
+
+const loadOtpScreen = async () => {
+    document.querySelector('#signup-form').classList.add('hidden');
+    document.querySelector('#login-form').classList.add('hidden');
+    document.querySelector('#otp-form').classList.remove('hidden');
+}
+
+const onSignupSuccess = async (userId) => {
+    await setLocalData({
+         userId: userId,
+         otpScreenPending: true
     });
+    loadOtpScreen();
 }
 
 /* -----------------SILENT MODE--------*/

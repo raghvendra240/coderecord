@@ -72,7 +72,7 @@
     try {
       const transporter = await getTransporter();
       const mailOptions = {
-        from: CLIENT_EMAIL,
+        from: `Coderecord Support <${CLIENT_EMAIL}>`,
         to: to,
         subject: subject,
         html: text,
