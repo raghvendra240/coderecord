@@ -1,14 +1,4 @@
 
-const getToken = async () => {
-    let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
-    localData = localData[LOCAL_STORAGE_KEY];
-    if (!localData || !localData.token) {
-       return;
-    }
-
-    return localData.token;
-}
-
 const loginNWRequest = async (email, password) => {
     try {
         const response = await fetch(`${BASE_URL}/users/login`, {
