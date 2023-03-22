@@ -24,13 +24,13 @@ const setError = (msg) => {
     const errorContainer = document.querySelector('.error-text-container');
     const errorText = document.querySelector('.error-text');
     errorText.textContent = msg;
-    errorContainer.style.display = 'flex';
+    errorContainer.classList.remove('hidden');
 }
 const clearError = () => {
     const errorContainer = document.querySelector('.error-text-container');
     const errorText = document.querySelector('.error-text');
     errorText.textContent = '';
-    errorContainer.style.display = 'none';
+    errorContainer.classList.add('hidden');
 }
 
 

@@ -330,3 +330,9 @@ body {
   height: 16px;
   margin-left: 8px;
 }
+
+.error-text-container {
+  padding: 10px 16px;
+  background: #FFF5F5;
+  border-radius: 4px;
+}
