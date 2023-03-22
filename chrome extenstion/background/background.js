@@ -37,7 +37,7 @@ async function checkReminders() {
         },
       });
       response = await response.json();
-      if (!response.success) {
+      if (!response.success || !response.data.length) {
         throw new Error(response.message);
       }
       reminderObj = {
