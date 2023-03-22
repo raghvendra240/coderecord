@@ -19,3 +19,7 @@ document.querySelectorAll('.form').forEach(form => {
     /*-----------------Dashboard BTN--------*/
     document.querySelector('.dashboard-btn').addEventListener('click', onDashboardClick);
 
+
+    /*-----------------OTP to Signup--------*/
+    document.querySelector('.otp-to-signup').addEventListener('click', switchToSignup);
+

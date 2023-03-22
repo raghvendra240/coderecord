@@ -75,6 +75,7 @@ function loadNotAuthenticatedBlock () {
 
 async function checkAuthentication() {
     try {
+        showLoader();
         let localData = await getLocalData();
         if (localData && localData.otpScreenPending) {
             loadOtpScreen();
@@ -99,7 +100,7 @@ async function checkAuthentication() {
         console.log(err);
         loadNotAuthenticatedBlock();
     } finally {
-        document.querySelector('.page-loader-wrapper').style.display = 'none';
+        hideLoader();
     }
    
 }

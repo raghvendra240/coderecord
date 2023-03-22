@@ -78,7 +78,7 @@ exports.verifyOTP = async (req, res) => {
     const { otp, userId } = req.body;
     const otpResponse = await OTP.findOne({ 'userId': new mongoose.Types.ObjectId(userId)  });
     if (!otpResponse) {
-      throw new Error('OTP not found');
+      throw new Error('OTP is expired. Please sign up again to proceed.');
     }
     if (otpResponse.otp !== otp) {
       throw new Error('Invalid OTP');
@@ -96,10 +96,10 @@ exports.verifyOTP = async (req, res) => {
     });
     
   } catch (error) {
-    console.log("Error occurred while creating user", error);
+    console.log("Error occurred while verifying OTP", error);
     res.status(400).send({
       success: false,
-      message: 'Error occurred while verifying OTP',
+      message: error.message,
       data: [],
       err: [error],
     })

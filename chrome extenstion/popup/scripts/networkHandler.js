@@ -11,16 +11,10 @@ const loginNWRequest = async (email, password) => {
                 password
             })
         })
-        const result = await response.json();
-        if (result.success) {
-            const { token, user } = result.data;
-            return { token, user };
-        } else {
-            return { error: result.error || true };
-        }
+        return await response.json();
     } catch (error) {
         console.log(error);
-        return {error: true};
+        return error;
     }
 }
 

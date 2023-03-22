@@ -6,53 +6,67 @@ const onLogoutClick = async () => {
 
 /*-----------------LOGIN RELATED--------*/
 const loginHandler = async (form) => {
-    const formData = new FormData(form);
-    const password = formData.get('password');
-    const email = formData.get('email');
-
-  const response = await loginNWRequest(email, password);
-  if (response.error) {
-      setError();
-  } else {
-      onAuthenticationSuccess(response.token, response.user);
-  }
+    try {
+        showLoader();
+        const formData = new FormData(form);
+        const password = formData.get('password');
+        const email = formData.get('email');
+    
+        const response = await loginNWRequest(email, password);
+        if (!response.success) {
+            throw new Error(response.message);
+        }
+        onAuthenticationSuccess(response.data.token, response.data.user);
+        
+    } catch (error) {
+        setError(error.message);
+    } finally {
+        hideLoader();
+    }
+ 
 };
 
 /*-----------------SIGNUP RELATED--------*/
 
 const signupHandler = async (form) => {
-    const formData = new FormData(form);
-    const password = formData.get('password');
-    const email = formData.get('email');
-    const firstName = formData.get('firstName');
-    const lastName = formData.get('lastName');
     try {
+        showLoader();
+        const formData = new FormData(form);
+        const password = formData.get('password');
+        const email = formData.get('email');
+        const firstName = formData.get('firstName');
+        const lastName = formData.get('lastName');
         const response = await signupNWRequest({firstName, lastName, email, password});
         if (!response.success) {
-            throw new Error('Error in signup');
+            throw new Error(response.message);
         }
         onSignupSuccess(response.data.userId);
         
     } catch (error) {
-        setError();
+        setError(error.message);
+    } finally {
+        hideLoader();
     }
 };
 
 /*-----------------OTP RELATED--------*/
 const otpHandler = async (form) => {
-    const formData = new FormData(form);
-    const otp = formData.get('otp');
-    const localData = await getLocalData();
-    const userId = localData.userId;
     try {
+        showLoader();
+        const formData = new FormData(form);
+        const otp = formData.get('otp');
+        const localData = await getLocalData();
+        const userId = localData.userId;
         const response = await verifyOtpNWRequest({userId, otp});
         if (!response.success) {
-            throw new Error('Error in otp verification');
+            throw new Error(response.message);
         }
         await setLocalData({otpScreenPending: false});
         onAuthenticationSuccess(response.data.token, response.data.user);
     } catch (error) {
-        setError();
+        setError(error.message);
+    } finally {
+        hideLoader();
     }
 };
 
@@ -76,6 +90,12 @@ function switchToLogin(event) {
     document.querySelector('#signup-form').classList.add('hidden');
 }
 
+async function switchToSignup (event) {
+    event.preventDefault();
+    document.querySelector('#login-form').classList.add('hidden');
+    document.querySelector('#otp-form').classList.add('hidden');
+    document.querySelector('#signup-form').classList.remove('hidden');
+ }
 
 /*---------------------SILENT MODE SWITCH-------------- */
 async function onSilentModeChange(event) {
@@ -119,3 +139,4 @@ async function onDashboardClick(event) {
     const url = `http://localhost:3000/?token=${token}`;
     chrome.tabs.create({ url});
 }
+ 

@@ -10,7 +10,7 @@
   <body>
     <div class="container">
       <div data-include="./templates/header.html"></div>
-      <div data-include="./templates/loader.html"></div>
+      <div class="loader-tmpl hidden" data-include="./templates/loader.html"></div>
       <div class="body-section">
         <div class="not-authenticated">
           <div class="display-flex h-center v-align">
@@ -47,13 +47,13 @@
             </div>
           </form>
           <form id="otp-form" action="" class="form hidden">
-            <div class="msg">Please check you inbox </div>
+            <div class="msg margin-bottom-12">Please enter the One-Time Password (OTP) </div>
             <input class="input" type="text" name="otp" placeholder="Enter OTP" />
             <div class="display-flex h-center" style="margin-top: 16px">
               <button type="submit" class="login-btn">Verify</button>
             </div>
             <div class="form-submsg">
-              <span class="form-submsg-link singup-to-login">Change email ?</span>
+              <span class="form-submsg-link otp-to-signup">Change email ?</span>
             </div>
           </form>
           <div class="error-text-container display-flex h-center v-center text-align-center margin-top-12 hidden">

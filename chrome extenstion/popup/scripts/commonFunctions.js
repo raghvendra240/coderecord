@@ -17,7 +17,10 @@ const setLocalData = async (data) => {
 
 
 /*-----------------ERROR RELATED--------*/
-const setError = (msg = 'Something went wrong') => {
+const setError = (msg) => {
+    if (!msg || !msg.length) {
+        msg = 'Something went wrong. Please try again later.';
+    }
     const errorContainer = document.querySelector('.error-text-container');
     const errorText = document.querySelector('.error-text');
     errorText.textContent = msg;
@@ -69,4 +72,12 @@ function removeSilentMode() {
 const getToken = async () => {
     const localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
     return localData[LOCAL_STORAGE_KEY]['token'];
+}
+
+/*------------------Loader Related--------------- */
+const showLoader = () => {
+    document.querySelector('.loader-tmpl').classList.remove('hidden');
+}
+const hideLoader = () => {
+    document.querySelector('.loader-tmpl').classList.add('hidden');
 }
