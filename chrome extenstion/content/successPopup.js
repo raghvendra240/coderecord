@@ -63,7 +63,7 @@ async function submitProblem(event) {
     if (event) {
       formData = getFormData(event);
     }
-    const data = { ...formData, ...problemObj , platformName: "leetcode", submittedDate: Date.now() };
+    const data = { ...formData, ...problemObj , platformName: "leetcode", submittedDate: new Date() };
     const token = await getToken();
     if (!token) {
         return;
@@ -80,12 +80,12 @@ async function submitProblem(event) {
         const response = await fetch(`${BASE_URL}/solved-problems`, config);
         const result = await response.json();
         if(!result.success) {
-           throw new Error(result.error);
+           throw new Error(result.message);
         }
         setToaster();
     } catch (error) {
         console.log(error);
-        setToaster('Something went wrong!', 'red')
+        setToaster(error.message, 'red')
     } finally {
       document.querySelector('.button-text').classList.remove('hidden');
       document.querySelector('.button-loader').classList.add('hidden');

@@ -1,7 +1,7 @@
 
 async function loadReminders() {
     const reminders = await getReminders();
-    if (!reminders.success) {
+    if (!reminders.success || !reminders.data.length) {
         return;
     }
     document.querySelector('.reminder-section').classList.remove('hidden');

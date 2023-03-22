@@ -27,8 +27,11 @@ module.exports.createSolvedProblem = async (req, res) => {
         session = await mongoose.startSession();
         session.startTransaction();
 
-        const reminderDate = new Date(req.body.reminderDate);
-        reminderDate.setHours(0, 0, 0, 0);
+        let reminderDate = null;
+        if (req.body.reminderDate) {
+            reminderDate = new Date(req.body.reminderDate)
+            reminderDate.setHours(0, 0, 0, 0);
+        }
         const solvedProblem = new SolvedProblem({
             platformName: req.body.platformName,
             problemName: req.body.problemName,
@@ -39,14 +42,16 @@ module.exports.createSolvedProblem = async (req, res) => {
             problemHint: req.body.problemHint,
             userId: req.userId,
         });
-        await solvedProblem.save({session});
-        const reminder = new Reminder({
-            problemName: req.body.problemName,
-            problemUrl: req.body.problemUrl,
-            dueDate: reminderDate,
-            userId: req.userId,
-        });
-        await reminder.save({session});
+        let solvedProblemResponse = await solvedProblem.save({session});
+        if (req.body.reminderDate) {
+            const reminder = new Reminder({
+                problemName: req.body.problemName,
+                problemUrl: req.body.problemUrl,
+                dueDate: reminderDate,
+                userId: req.userId,
+            });
+            await reminder.save({session});
+        }
         await session.commitTransaction();
         res.status(201).json({
             success: true,
@@ -57,9 +62,13 @@ module.exports.createSolvedProblem = async (req, res) => {
     } catch (error) {
         console.log("Error while creating solved problem", error);
         await session.abortTransaction();
+        let errorMessage = 'Error while creating solved problem';
+        if (error.code === 11000) {
+            errorMessage = 'Problem already recorded';
+        }
         res.status(400).json({
             success: false,
-            message: 'Error while creating solved problem',
+            message: errorMessage,
             data: [],
             err: [error],
         });
