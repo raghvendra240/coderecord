@@ -63,7 +63,7 @@ async function submitProblem(event) {
     if (event) {
       formData = getFormData(event);
     }
-    const data = { ...formData, ...problemObj , platformName: "leetcode", submittedDate: new Date() };
+    const data = { ...formData, ...problemObj, submittedDate: new Date() };
     const token = await getToken();
     if (!token) {
         return;

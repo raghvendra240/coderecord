@@ -35,14 +35,13 @@ async function loadSolvedProblems() {
         return;
     }
     const solvedProblems = response.data;
+    console.log(solvedProblems);
     const numberOfProblemSolved = document.querySelector('.num-of-problem-solved');
     numberOfProblemSolved.textContent = solvedProblems.length;
     const leetcodeSolved = response.data.filter(problem => problem.platformName === 'leetcode');
-    const leetcodeSolvedCount = document.querySelector('.leetcode-solved');
-    leetcodeSolvedCount.textContent = leetcodeSolved.length || 0;
-    const gfgSolved = response.data.length - leetcodeSolved.length;
-    const gfgSolvedCount = document.querySelector('.gfg-solved');
-    gfgSolvedCount.textContent = gfgSolved.length || 0;
+    document.querySelector('.leetcode-solved').textContent = leetcodeSolved.length || 0;
+    const gfgSolvedCount = response.data.length - leetcodeSolved.length;
+    document.querySelector('.gfg-solved').textContent = gfgSolvedCount || 0;
 }
 
 function loadUserDetails(user) {
