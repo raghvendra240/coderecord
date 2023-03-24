@@ -1,0 +1,40 @@
+.sort-container {
+    height: fit-content;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 4px;
+    border: 1px solid #a79797;
+    cursor: pointer;
+    &:hover {
+       border: 1px solid white;
+    }
+    &.active {
+        border: 1px solid orange;
+    }
+    .sort-header {
+        display: flex;
+        .sort-icon {
+            margin-right: 12px;
+           img {
+                width: 18px;
+                height: 18px;
+           }
+        }
+        .sort-text {
+            display: flex;
+            .selected {
+                margin-left: 4px;
+                color: orange;
+            }
+        }
+        .down-chevron {
+            position: relative;
+            top: 2px;
+            margin-left: 12px;
+            img {
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+}
