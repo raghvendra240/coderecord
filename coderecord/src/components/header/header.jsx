@@ -20,8 +20,7 @@ function authenticatedView (userName, setAuthenticatedCB) {
   )
 }
 
-export default function header({userDetails, authenticationModalHandler, setAuthenticatedCB}) {
-  const isAuthenticated = userDetails && userDetails.isAuthenticated;
+export default function header({userDetails, isAuthenticated,  authenticationModalHandler, setAuthenticatedCB}) {
   const authenticationModalHandlerCB = () => {
     authenticationModalHandler(true);
   }
