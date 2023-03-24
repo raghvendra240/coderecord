@@ -17,7 +17,13 @@ export default function Sort() {
           <img src={downChevron} alt="" />
         </div>
       </div>
-      {/* <div className='sort-list'></div> */}
+      <div className='sort-list'>
+        <div className='sort-item'>Submission</div>
+        <div className='sort-item'>Submission</div>
+        <div className='sort-item'>Submission</div>
+        <div className='sort-item'>Submission</div>
+        <div className='sort-item'>Submission</div>
+      </div>
 
     </div>
   )
