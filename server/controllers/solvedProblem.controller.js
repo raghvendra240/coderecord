@@ -1,7 +1,7 @@
 const SolvedProblem = require("../models/solvedProblem.model.js");
 const Reminder = require("../models/reminder.model.js");
 const { default: mongoose } = require("mongoose");
-const { sortOptions } = require("../constants");
+const { sortOptions, filterOptions } = require("../constants");
 
 function getDefaultSortId() {
     return sortOptions.find((sortOption) => sortOption.default).id;
@@ -15,13 +15,24 @@ module.exports.getSolvedProblems = async (req, res) => {
     const sortId = req.query.sortId || getDefaultSortId();
     const sortOrder =  sortOptions.find((sortOption) => sortOption.id == sortId).order
     const sortValue  = sortOptions.find((sortOption) => sortOption.id == sortId).value;
+    const filterId = req.query.filterId ;
+    let filterQuery = {};
+    if (filterId > 0) {
+        filterQuery = filterOptions.find((filterOption) => filterOption.id == filterId).query;
+    }
     const query = {
-        userId: req.userId,
+        $and: [
+            { userId: req.userId },
+            filterQuery
+        ],
         $or: [
             { platformName: { $regex: search, $options: 'i' } },
             { problemName: { $regex: search, $options: 'i' } },
         ],
     };
+    if (filterId > 0) {
+
+    }
     const sortQuery = {
         [sortValue]: sortOrder.toLowerCase() == 'asc' ? 1 : -1,
     }

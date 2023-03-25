@@ -7,10 +7,10 @@ const sortOptions = [
 
 const filterOptions = [
     {id: 0, name: 'All', value: 'all', default: true},
-    {id: 1, name: 'Platform: GFG', value: 'gfg'},
-    {id: 2, name: 'Platform: Leetcode', value: 'leetcode'},
-    {id: 3, name: 'Have Hints', value: 'haveHints'},
-    {id: 4, name: 'Have Reminders', value: 'haveReminders'},
+    {id: 1, name: 'Platform: GFG', value: 'gfg', query : {platformName: 'gfg'}},
+    {id: 2, name: 'Platform: Leetcode', value: 'leetcode', query : {platformName: 'leetcode'}},
+    {id: 3, name: 'Have Hints', value: 'haveHints', query : {problemHint: {$ne: null}}},
+    {id: 4, name: 'Have Reminders', value: 'haveReminders', query : {reminderDate: {$ne: null}}},
 ]
 
 

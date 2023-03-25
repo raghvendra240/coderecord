@@ -39,7 +39,7 @@ export default function MainBody() {
   useEffect(() => {
     const fetchSolvedProblemsWrapper = async () => {
     try {
-        let solvedProblems_ = await fetchSolvedProblems(searchText, sortId);
+        let solvedProblems_ = await fetchSolvedProblems(searchText, sortId, filterId);
         if (!solvedProblems_) {
           throw new Error("")
         } else {
