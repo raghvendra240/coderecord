@@ -1,5 +1,7 @@
 .sort-container {
     height: fit-content;
+    width: 207px;
+    box-sizing: border-box;
     position: relative;
     color: white;
     padding: 12px 18px;
@@ -26,6 +28,7 @@
         }
         .sort-text {
             display: flex;
+            flex-grow: 1;
             .selected {
                 margin-left: 4px;
                 color: orange;
@@ -60,12 +63,17 @@
         }
         .sort-item {
             padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
             cursor: pointer;
             &:hover {
                 background-color: #7F8487;
             }
             &.selected {
                 background-color: #413F42;
+            }
+            .sort-icon {
+                width: 22px;
             }
         }
     }

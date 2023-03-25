@@ -13,17 +13,18 @@ export default function MainBody() {
   const [sortType, setSortType] = useState('');
   const [filterType, setFilterType] = useState('');
   const [sortOptions, setSortOptions] = useState([]);
-  // let sortOptions = [];
-  // const setSortOptions = (options) => {sortOptions = options}
-
-  const contextObject = {
-    searchText, setSearchText, sortType, setSortType, filterType, setFilterType, sortOptions
-  }
+  // const [contextObject, setContextObject] = useState({});
+  const [operationsLoaded, setOperationsLoaded] = useState(0);
+  const [solvedProblemsLoading, setSolvedProblemsLoading] = useState(true);
+  // setContextObject({
+  //   searchText, setSearchText, sortType, setSortType, filterType, setFilterType, sortOptions
+  // });
 
   useEffect(() => {
     const fetchSortOptionsWrapper = async () => {
       const options = await fetchSortOptions();
       setSortOptions(options);
+      setOperationsLoaded(operationsLoaded + 1);
     }
     fetchSortOptionsWrapper();
   }, []);
@@ -36,6 +37,7 @@ export default function MainBody() {
           throw new Error("")
         } else {
           setSolvedProblems(solvedProblems_);
+          setSolvedProblemsLoading(false);
         }
       } catch (error) {
         console.log("Error while fetching solved problems",error);
@@ -48,11 +50,12 @@ export default function MainBody() {
 
 
   return (
-    <mainBodyContext.Provider value={contextObject}>
+    <mainBodyContext.Provider value={{searchText, setSearchText, sortType, setSortType, filterType, setFilterType, sortOptions}}>
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
-      <Operations></Operations>
+      {operationsLoaded > 0 && <Operations></Operations>}
       {solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
+      {solvedProblemsLoading && <div className='loading'>Loading...</div>}
     </div>
     </mainBodyContext.Provider>
   )
