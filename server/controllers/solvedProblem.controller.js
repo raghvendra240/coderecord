@@ -3,8 +3,16 @@ const Reminder = require("../models/reminder.model.js");
 const { default: mongoose } = require("mongoose");
 
 module.exports.getSolvedProblems = async (req, res) => {
+    const search = req.query.search || '';
+    const query = {
+        userId: req.userId,
+        $or: [
+            { platformName: { $regex: search, $options: 'i' } },
+            { problemName: { $regex: search, $options: 'i' } },
+        ],
+    };
     try {
-        const solvedProblems = await SolvedProblem.find({ userId: req.userId }).select('platformName problemName problemUrl submittedDate problemHint');
+        const solvedProblems = await SolvedProblem.find(query).select('platformName problemName problemUrl submittedDate problemHint');
         res.status(200).json({
             success: true,
             message: 'Solved problems fetched successfully',
