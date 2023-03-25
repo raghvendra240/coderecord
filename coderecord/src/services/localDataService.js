@@ -9,6 +9,10 @@ export const saveLocalData = (data = {}) => {
 }
 
 export const getLocalData = () => {
-    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return JSON.parse(data);
+    try {
+        const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+        return JSON.parse(data);
+    } catch (error) {
+        return null;
+    }
 }
