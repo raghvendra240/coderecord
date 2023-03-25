@@ -62,6 +62,30 @@ module.exports.getSolvedProblems = async (req, res) => {
     }
 }
 
+module.exports.getAllSolvedProblemCount = async (req, res) => {
+    try {
+        const totalProblems = await SolvedProblem.countDocuments({ userId: req.userId });
+        const leetcodeProblemsCount = await SolvedProblem.countDocuments({ userId: req.userId, platformName: 'leetcode' });
+        res.status(200).json({
+            success: true,
+            message: 'Solved problems fetched successfully',
+            data: {
+                gfg: totalProblems - leetcodeProblemsCount,
+                leetcode: leetcodeProblemsCount,
+                total: totalProblems,
+            },
+            err: [],
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error while getting solved problems',
+            data: {},
+            err: [error], 
+        });
+    }
+}
+
 module.exports.createSolvedProblem = async (req, res) => {
     let session = null;
     try {

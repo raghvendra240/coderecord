@@ -29,19 +29,15 @@ async function loadSolvedProblems() {
     const config = {
         headers: { Authorization: `Bearer ${localData.token}` }
     };
-    let response = await fetch(`${BASE_URL}/solved-problems`, config);
+    let response = await fetch(`${BASE_URL}/solved-problems/count`, config);
     response = await response.json();
     if (!response.success) {
         return;
     }
     const solvedProblems = response.data;
-    console.log(solvedProblems);
-    const numberOfProblemSolved = document.querySelector('.num-of-problem-solved');
-    numberOfProblemSolved.textContent = solvedProblems.length;
-    const leetcodeSolved = response.data.filter(problem => problem.platformName === 'leetcode');
-    document.querySelector('.leetcode-solved').textContent = leetcodeSolved.length || 0;
-    const gfgSolvedCount = response.data.length - leetcodeSolved.length;
-    document.querySelector('.gfg-solved').textContent = gfgSolvedCount || 0;
+    document.querySelector('.num-of-problem-solved').textContent = solvedProblems.total || 0;
+    document.querySelector('.leetcode-solved').textContent = solvedProblems.leetcode || 0
+    document.querySelector('.gfg-solved').textContent = solvedProblems.gfg || 0;
 }
 
 function loadUserDetails(user) {

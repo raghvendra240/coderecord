@@ -7,5 +7,6 @@ const authenticateMW = require('../middlewares/authenticate');
 //Private routes
 router.get('/', authenticateMW, solvedProblemController.getSolvedProblems);
 router.post('/', authenticateMW, solvedProblemController.createSolvedProblem);
+router.get('/count', authenticateMW, solvedProblemController.getAllSolvedProblemCount);
 
 module.exports = router;
