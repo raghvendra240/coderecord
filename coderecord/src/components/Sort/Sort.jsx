@@ -9,7 +9,7 @@ import mainBodyContext from '../../contexts/mainBodyContext'
 import $ from 'jquery'
 
 export default function Sort() {
-  const {sortOptions} = useContext(mainBodyContext);
+  const {sortOptions, setSortId} = useContext(mainBodyContext);
   const defaultSort = sortOptions.length && sortOptions.find((sortOption) => sortOption.default);
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const [selectedSortOption, setSelectedSortOption] = useState(defaultSort.id);
@@ -34,6 +34,7 @@ export default function Sort() {
     const index = $element.data('index');
     setSelectedSortOption(index);
     setDropdownStatus(false);
+    setSortId(sortOptions[index].id)
   }
   return (
     <div className={dropdownStatus ? 'sort-container active': 'sort-container'} >

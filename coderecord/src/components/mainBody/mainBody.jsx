@@ -10,7 +10,7 @@ import mainBodyContext from '../../contexts/mainBodyContext'
 export default function MainBody() {
   const [solvedProblems, setSolvedProblems] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const [sortType, setSortType] = useState('');
+  const [sortId, setSortId] = useState('');
   const [filterType, setFilterType] = useState('');
   const [sortOptions, setSortOptions] = useState([]);
   // const [contextObject, setContextObject] = useState({});
@@ -32,7 +32,7 @@ export default function MainBody() {
   useEffect(() => {
     const fetchSolvedProblemsWrapper = async () => {
     try {
-        let solvedProblems_ = await fetchSolvedProblems(searchText);
+        let solvedProblems_ = await fetchSolvedProblems(searchText, sortId);
         if (!solvedProblems_) {
           throw new Error("")
         } else {
@@ -45,12 +45,12 @@ export default function MainBody() {
     };
 
     fetchSolvedProblemsWrapper();
-  }, [searchText, sortType, filterType]);
+  }, [searchText, sortId, filterType]);
 
 
 
   return (
-    <mainBodyContext.Provider value={{searchText, setSearchText, sortType, setSortType, filterType, setFilterType, sortOptions}}>
+    <mainBodyContext.Provider value={{searchText, setSearchText, setSortId, filterType, setFilterType, sortOptions}}>
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
       {operationsLoaded > 0 && <Operations></Operations>}
