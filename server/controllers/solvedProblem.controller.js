@@ -1,9 +1,20 @@
 const SolvedProblem = require("../models/solvedProblem.model.js");
 const Reminder = require("../models/reminder.model.js");
 const { default: mongoose } = require("mongoose");
+const { sortOptions } = require("../constants");
+
+function getDefaultSortId() {
+    return sortOptions.find((sortOption) => sortOption.default).id;
+}
+function gerDefaultSortOrder() {
+    return sortOptions.find((sortOption) => sortOption.default).order;
+}
 
 module.exports.getSolvedProblems = async (req, res) => {
     const search = req.query.search || '';
+    const sortId = req.query.sortId || getDefaultSortId();
+    const sortOrder = (req.query.sortOrder || gerDefaultSortOrder()).toLowerCase();
+    const sortValue  = sortOptions.find((sortOption) => sortOption.id === sortId).value;
     const query = {
         userId: req.userId,
         $or: [
@@ -11,8 +22,14 @@ module.exports.getSolvedProblems = async (req, res) => {
             { problemName: { $regex: search, $options: 'i' } },
         ],
     };
+    const sortQuery = {
+        [sortValue]: sortOrder == 'asc' ? 1 : -1,
+    }
     try {
-        const solvedProblems = await SolvedProblem.find(query).select('platformName problemName problemUrl submittedDate problemHint');
+        const solvedProblems = await SolvedProblem.find(query)
+                                                   .sort(sortQuery)
+                                                   .select('platformName problemName problemUrl submittedDate problemHint')
+                                                   .exec();
         res.status(200).json({
             success: true,
             message: 'Solved problems fetched successfully',
