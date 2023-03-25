@@ -16,16 +16,14 @@ export default function Sort() {
   document.addEventListener('click', (e) => {
     e.stopPropagation();
     const $element = $(e.target);
-    if ($element.hasClass('sort-container') || $element.parents('.sort-container').length > 0) {
-      if ($element.hasClass('sort-list') || $element.parents('.sort-list').length > 0) {
+    if ($element.hasClass('js-sort-container') || $element.parents('.js-sort-container').length > 0) {
+      if ($element.hasClass('js-sort-list') || $element.parents('.js-sort-list').length > 0) {
         return;
       }
       setDropdownStatus(!dropdownStatus);
     } else {
       setDropdownStatus(false);
     }
-
-    
   })
   const listClickHandler = (e) => {
     e.stopPropagation();
@@ -37,7 +35,7 @@ export default function Sort() {
     setSortId(sortOptions[index].id)
   }
   return (
-    <div className={dropdownStatus ? 'sort-container active': 'sort-container'} >
+    <div className={`sort-container js-sort-container ${dropdownStatus && 'active' }`} >
       <div className='sort-header'>
         <div className='sort-icon'>
           <img src={sortIcon} alt="" />
@@ -50,7 +48,7 @@ export default function Sort() {
           <img src={dropdownStatus ? upChevron : downChevron} alt="" />
         </div>
       </div>
-      <div className={dropdownStatus ? 'sort-list active': 'sort-list'} onClick={listClickHandler}>
+      <div className={`sort-list js-sort-list ${dropdownStatus &&  'active'}`} onClick={listClickHandler}>
         {sortOptions.map((option, index) => { 
           return <div className={`sort-item ${selectedSortOption === index && 'selected'}`} key={option.id}  data-index={index}>
             <div>{option.name}</div>

@@ -1,7 +1,7 @@
 const router  = require('express').Router();
 const authenticateMW = require('../middlewares/authenticate');
 
-const {sortOptions} = require('../constants');
+const {sortOptions, filterOptions} = require('../constants');
  
 router.get('/sort', authenticateMW, (req, res) => {
     res.status(200).send({
@@ -12,5 +12,12 @@ router.get('/sort', authenticateMW, (req, res) => {
     })
 });
 
-
+router.get('/filter', authenticateMW, (req, res) => {
+    res.status(200).send({
+        success: true,
+        message: 'Filter operation fetched successfully',
+        data: filterOptions,
+        err: [],
+    })  
+});
 module.exports = router
