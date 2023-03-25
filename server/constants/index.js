@@ -13,8 +13,10 @@ const filterOptions = [
     {id: 4, name: 'Have Reminders', value: 'haveReminders', query : {reminderDate: {$ne: null}}},
 ]
 
+const pageSize = 10;
 
 module.exports = {
     sortOptions,
-    filterOptions
+    filterOptions,
+    pageSize
 }

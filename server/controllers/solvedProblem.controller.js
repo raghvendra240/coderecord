@@ -1,7 +1,7 @@
 const SolvedProblem = require("../models/solvedProblem.model.js");
 const Reminder = require("../models/reminder.model.js");
 const { default: mongoose } = require("mongoose");
-const { sortOptions, filterOptions } = require("../constants");
+const { sortOptions, filterOptions, pageSize } = require("../constants");
 
 function getDefaultSortId() {
     return sortOptions.find((sortOption) => sortOption.default).id;
@@ -15,6 +15,7 @@ module.exports.getSolvedProblems = async (req, res) => {
     const sortId = req.query.sortId || getDefaultSortId();
     const sortOrder =  sortOptions.find((sortOption) => sortOption.id == sortId).order
     const sortValue  = sortOptions.find((sortOption) => sortOption.id == sortId).value;
+    const pageNum = req.query.page || 1;
     const filterId = req.query.filterId ;
     let filterQuery = {};
     if (filterId > 0) {
@@ -37,14 +38,18 @@ module.exports.getSolvedProblems = async (req, res) => {
         [sortValue]: sortOrder.toLowerCase() == 'asc' ? 1 : -1,
     }
     try {
+        const totalProblems = await SolvedProblem.countDocuments(query);
+        const totalPages = Math.ceil(totalProblems / pageSize);
         const solvedProblems = await SolvedProblem.find(query)
                                                    .sort(sortQuery)
                                                    .select('platformName problemName problemUrl submittedDate problemHint')
+                                                   .skip((pageNum - 1) * pageSize)
+                                                    .limit(pageSize)
                                                    .exec();
         res.status(200).json({
             success: true,
             message: 'Solved problems fetched successfully',
-            data: solvedProblems,
+            data: {solvedProblems, totalPages},
             err: [],
         });
     } catch (error) {
