@@ -61,7 +61,9 @@ export default function MainBody() {
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
       {operationsLoaded > 2 && <Operations></Operations>}
-      {solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
+      <div className='card-wrapper'>
+        {solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
+      </div>
       {solvedProblemsLoading && <div className='loading'>Loading...</div>}
     </div>
     </mainBodyContext.Provider>

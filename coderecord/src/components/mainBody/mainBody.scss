@@ -1,9 +1,32 @@
 .main-body-container {
-    // width: 100%;
     display: block;
-    min-height: calc(100vh - 100px);
+    height: calc(100vh - 64px);
+    max-height: calc(100vh - 64px);
+    overflow: hidden;
     background: #212121;
     overflow-x: hidden;
-    padding: 30px 60px;
-    justify-content: center;
 }
+.card-wrapper {
+    overflow-y: auto;
+    height: calc(100% - 108px);
+    padding: 0 42px 20px 42px;
+}
+/* webkit-based browsers */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #a8a8a8;
+    border-radius: 10px;
+  }
+  
+  /* Firefox */
+  ::-moz-scrollbar {
+    width: 8px;
+  }
+  
+  ::-moz-scrollbar-thumb {
+    background-color: #a8a8a8;
+    border-radius: 10px;
+  }
