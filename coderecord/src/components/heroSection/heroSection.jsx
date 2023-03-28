@@ -3,6 +3,7 @@ import './heroSection.scss'
 import heroSectionPath from '../../assets/images/main_logo_orange.png'
 import '../../assets/styles/common.scss'
 import illustration from '../../assets/images/illustration.svg'
+import PrimaryButton from '../primaryButton/primaryButton'
 export default function heroSection() {
   return (
     <div className='hero-container'>
@@ -14,9 +15,9 @@ export default function heroSection() {
             <div className='subtext'>Stay organized with your coding progress.</div>
             <div className='app-info'>CodeRecord is the best app to keep track of your coding problems and solutions. With CodeRecord, you can easily organize and manage all your coding challenges, and never forget a solution again.</div>
               <div className='download-section'>
-                <div className="button">Download Chrome Extension</div>
+                <PrimaryButton btnText='Download Chrome Extension'></PrimaryButton>
                 <div className='vertical-separator'></div>
-                <div className="button">Login</div>
+                <PrimaryButton btnText='Login'></PrimaryButton>
               </div>
            </div>
            <div className='illustration-container'>
