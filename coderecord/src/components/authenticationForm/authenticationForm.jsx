@@ -5,6 +5,7 @@ import "../../assets/styles/common.scss";
 import PrimaryButton from "../primaryButton/primaryButton";
 import CloseButton from "../closeButton/closeButton";
 import miniLogo from "../../assets/images/logo_mini.png";
+import '../../assets/styles/common.scss'
 
 import {login} from "../../services/userService";
 
@@ -164,6 +165,9 @@ export default function AuthenticationForm({currentFormState, closeModalFn, setA
             {formState === formStates.SIGN_UP ? getSignUpFields(handleInputChange) : ''}
             <div className="cr-margin-top-24">
               <PrimaryButton btnText={getButtonText(formState)} clickHandlerCB={primaryBtnClickHandlerWrapper} ></PrimaryButton>
+            </div>
+            <div className="cr-margin-top-12">
+              <a href="" className="download-link">Download Chrome Extension</a> to register
             </div>
           </div>
         </div>
