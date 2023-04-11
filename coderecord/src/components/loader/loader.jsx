@@ -5,7 +5,7 @@ import "../../assets/styles/common.scss";
 export default function Loaded() {
   return (
     <div className="backdrop darker">
-        <div className="loader">
+        <div className="form-loader">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 128 128"

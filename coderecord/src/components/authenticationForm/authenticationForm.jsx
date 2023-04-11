@@ -5,6 +5,7 @@ import "../../assets/styles/common.scss";
 import PrimaryButton from "../primaryButton/primaryButton";
 import CloseButton from "../closeButton/closeButton";
 import miniLogo from "../../assets/images/logo_mini.png";
+import Loader from "../loader/loader";
 import '../../assets/styles/common.scss'
 
 import {login} from "../../services/userService";
@@ -132,13 +133,16 @@ function primaryBtnClickHandler(event, formState, setFormState, formFields) {
     }
 }
 
-export default function AuthenticationForm({currentFormState, closeModalFn, setAuthenticatedCB}) {
-//   const userEmail = "dashjv@gmai.com";
- 
+export default function AuthenticationForm({currentFormState, closeModalFn, setAuthenticatedCB}) {  
+
   const [formState, setFormState] = useState(currentFormState || formStates.SIGN_IN);
   const [formFields, setFormFields] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   async function primaryBtnClickHandlerWrapper(event) {
+    event.preventDefault();
+    setIsLoading(true);
     const isOperationSuccessful = await primaryBtnClickHandler(event, formState, setFormState, formFields);
+    setIsLoading(false);
     closeModalFn();
     isOperationSuccessful && setAuthenticatedCB(true);
   }
@@ -150,6 +154,7 @@ export default function AuthenticationForm({currentFormState, closeModalFn, setA
   } 
   return (
     <div className="backdrop">
+      {isLoading && <Loader></Loader>}
       <div className="authentication-form">
         <div>
           <div className="form-header">
