@@ -6,6 +6,7 @@ import {fetchSortOptions, fetchFilterOptions} from '../../services/operationsSer
 import Operations from '../Operations/Operations'
 import $ from 'jquery'
 import mainBodyContext from '../../contexts/mainBodyContext'
+import ThreeDotLoader from '../ThreeDotLoader/ThreeDotLoader'
 
 export default function MainBody() {
   const [solvedProblems, setSolvedProblems] = useState([]);
@@ -90,8 +91,8 @@ export default function MainBody() {
       {operationsLoaded > 2 && <Operations></Operations>}
       <div className='card-wrapper js-card-scrollable'>
         {solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
+        {loadingMore && <ThreeDotLoader></ThreeDotLoader>}
       </div>
-      {loadingMore && <div className="circular-loader">Loading...</div>}
       {solvedProblemsLoading && <div className='loading'>Loading...</div>}
     </div>
     </mainBodyContext.Provider>
