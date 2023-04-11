@@ -90,10 +90,16 @@ export default function MainBody() {
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
       {operationsLoaded > 2 && <Operations></Operations>}
       <div className='card-wrapper js-card-scrollable'>
-        {solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
+      {solvedProblemsLoading && 
+        <div>
+          <Card showSkeleton={true}></Card>
+          <Card showSkeleton={true}></Card>
+          <Card showSkeleton={true}></Card>
+        </div>
+        }
+        {!solvedProblemsLoading && solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
         {loadingMore && <ThreeDotLoader></ThreeDotLoader>}
       </div>
-      {solvedProblemsLoading && <div className='loading'>Loading...</div>}
     </div>
     </mainBodyContext.Provider>
   )

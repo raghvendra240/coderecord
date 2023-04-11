@@ -13,7 +13,7 @@
         height: 100%;
         position: relative;
     }
-
+   
    }
 
    /*--------TEMP CHANGES-----------------------*/
@@ -37,15 +37,34 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   &:hover {
     background-color: #ffc100;
-    // .problem-action-button {
-    //     background: #fd4b0f 
-    // }
   }
   img {
     width: 30px;
     height: 30px;
     margin-right: 10px;
     border-radius: 50%;
+  }
+  &.skeleton {
+    height: 50px;
+    pointer-events: none;
+    background: white;
+    .platform-icon, .problem-action, .problem-details {
+      background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+      border-radius: 5px;
+      background-size: 200% 100%;
+      animation: 1.5s shine linear infinite;
+      height: 90%;
+    }
+    .platform-icon {
+      width: 50px;
+     
+    }
+    .problem-details {
+      width: 30%;
+    }
+    .problem-action {
+      width: 30%;
+    }
   }
 }
 
@@ -113,4 +132,10 @@
   .problem-card button:hover {
     color: #fff;
     background-color: #ff4d00;
+  }
+
+  @keyframes shine {
+    to {
+      background-position-x: -200%;
+    }
   }

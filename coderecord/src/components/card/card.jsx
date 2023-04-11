@@ -20,17 +20,31 @@ function getPaltformIcon(platform) {
     case "leetcode":
       return leetcodeLogo;
     default:
-      return gfgLogo;
+      return;
   }
 }
 
-const Card = ({ problem }) => {
+function getSkeleton() {
+  return (
+    <div className="problem-card skeleton">
+      <div className="platform-icon"></div>
+      <div className="problem-details">
+      </div>
+      <div className="problem-action">
+      </div>
+    </div>
+  )
+}
+
+const Card = ({ problem, showSkeleton }) => {
   const [isHintOpen, setIsHintOpen] = useState(false);
   function openHintModal() {
     setIsHintOpen(true);
   }
-  return (
-    <div className="problem-card">
+  if (showSkeleton) {
+    return getSkeleton();
+  } else return (
+    <div className={`problem-card`}>
       <div className="platform-icon">
         <img
           className="platform-icon"
