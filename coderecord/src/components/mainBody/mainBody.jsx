@@ -88,7 +88,7 @@ export default function MainBody() {
     <mainBodyContext.Provider value={{searchText, setSearchText, setSortId, setFilterId, sortOptions, filterOptions}}>
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
-      {operationsLoaded > 2 && <Operations></Operations>}
+      {operationsLoaded >= 2 && <Operations></Operations>}
       <div className='card-wrapper js-card-scrollable'>
       {solvedProblemsLoading && 
         <div>
