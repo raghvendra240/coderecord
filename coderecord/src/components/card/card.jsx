@@ -2,7 +2,7 @@ import "./card.scss";
 import gfgLogo from "../../assets/images/gfg_icon.png";
 import leetcodeLogo from "../../assets/images/leetcode_icon_2.png";
 import React, { useState } from "react";
-
+import SmallComponents from "../SmallComponents/SmallComponents";
 import HintPopup from "../HintPopup/HintPopup";
 
 function getFormattedDate(date) {
@@ -59,6 +59,7 @@ const Card = ({ problem, showSkeleton }) => {
           </div>
         </div>
         <div className="problem-action">
+          {problem.reminderDate && <SmallComponents dateType={true} date={problem.reminderDate}></SmallComponents>}
           <button
             className={`problem-action-button ${problem.problemHint ? "" : "disabled"}`}
             onClick={openHintModal}

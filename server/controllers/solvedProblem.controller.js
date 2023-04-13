@@ -42,7 +42,7 @@ module.exports.getSolvedProblems = async (req, res) => {
         const totalPages = Math.ceil(totalProblems / pageSize);
         const solvedProblems = await SolvedProblem.find(query)
                                                    .sort(sortQuery)
-                                                   .select('platformName problemName problemUrl submittedDate problemHint')
+                                                   .select('platformName problemName problemUrl submittedDate problemHint reminderDate')
                                                    .skip((pageNum - 1) * pageSize)
                                                     .limit(pageSize)
                                                    .exec();
