@@ -59,7 +59,7 @@ const Card = ({ problem, showSkeleton }) => {
           </div>
         </div>
         <div className="problem-action">
-          {problem.reminderDate && <SmallComponents dateType={true} date={problem.reminderDate}></SmallComponents>}
+          {problem.reminderDate && <div style={{ "margin-right": "12px" }}><SmallComponents dateType={true} date={problem.reminderDate}></SmallComponents></div>}
           <button
             className={`problem-action-button ${problem.problemHint ? "" : "disabled"}`}
             onClick={openHintModal}

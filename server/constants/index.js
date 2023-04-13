@@ -9,8 +9,8 @@ const filterOptions = [
     {id: 0, name: 'All', value: 'all', default: true},
     {id: 1, name: 'Platform: GFG', value: 'gfg', query : {platformName: 'gfg'}},
     {id: 2, name: 'Platform: Leetcode', value: 'leetcode', query : {platformName: 'leetcode'}},
-    {id: 3, name: 'Have Hints', value: 'haveHints', query : {problemHint: {$ne: null}}},
-    {id: 4, name: 'Have Reminders', value: 'haveReminders', query : {reminderDate: {$ne: null}}},
+    {id: 3, name: 'Have Hints', value: 'haveHints', query : {problemHint: {$ne: null}, problemHint: {$ne: ''}}},
+    {id: 4, name: 'Have Reminders', value: 'haveReminders', query : {reminderDate: {$ne: null}, reminderDate: {$ne: ''}}},
 ]
 
 const pageSize = 10;
