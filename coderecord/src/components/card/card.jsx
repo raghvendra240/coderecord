@@ -37,7 +37,9 @@ function getSkeleton() {
 const Card = ({ problem, showSkeleton }) => {
   const [isHintOpen, setIsHintOpen] = useState(false);
   function openHintModal() {
-    setIsHintOpen(true);
+    if (problem.problemHint) {
+      setIsHintOpen(true);
+    }
   }
   if (showSkeleton) {
     return getSkeleton();

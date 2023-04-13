@@ -110,7 +110,7 @@
   }
   &.disabled {
     background-color: #ccc;
-    cursor: not-allowed;
+    cursor: default;
     transition: none;
   }
 }
