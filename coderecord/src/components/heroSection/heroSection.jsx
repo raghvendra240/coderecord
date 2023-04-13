@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './heroSection.scss'
 import heroSectionPath from '../../assets/images/main_logo_orange.png'
 import '../../assets/styles/common.scss'
 import illustration from '../../assets/images/illustration.svg'
 import PrimaryButton from '../primaryButton/primaryButton'
-export default function heroSection() {
+import appContext from '../../contexts/appContext'
+export default function HeroSection() {
+  const {setAuthenticationModal} = useContext(appContext);
   return (
     <div className='hero-container'>
         <div><img src={heroSectionPath} alt="" /></div>
@@ -17,7 +19,7 @@ export default function heroSection() {
               <div className='download-section'>
                 <PrimaryButton btnText='Download Chrome Extension'></PrimaryButton>
                 <div className='vertical-separator'></div>
-                <PrimaryButton btnText='Login'></PrimaryButton>
+                <PrimaryButton btnText='Login' clickHandlerCB = {()=> {setAuthenticationModal(true)}}></PrimaryButton>
               </div>
            </div>
            <div className='illustration-container'>

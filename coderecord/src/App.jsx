@@ -4,7 +4,7 @@ import Header from './components/header/header'
 import Welcome from './components/welcome/welcome'
 import AuthenticationForm from './components/authenticationForm/authenticationForm'
 import MainBody from './components/mainBody/mainBody'
-
+import appContext from './contexts/appContext'
 import {getUserInfo} from './services/userService'
 
 function getAuthenticatedView (userName) {
@@ -33,12 +33,14 @@ export default function App() {
     fetchUserInfo();
   }, [isAuthenticated])
   return (
-    <div className="app-body">
-       <Header userDetails={userDetails} isAuthenticated={isAuthenticated} authenticationModalHandler={setAuthenticationModal} setAuthenticatedCB={(value) => {setIsAuthenticated(value);}} ></Header>
-       {(!isAuthenticated || isAuthenticated === 'false') && (<Welcome></Welcome>)}
-       {(isAuthenticated === 'true') && (<MainBody></MainBody>)}
-       {isAuthenticated === 'true' && getAuthenticatedView(userDetails.userName)}
-      {isAuthenticationModalOpen && <AuthenticationForm setAuthenticatedCB={() => {setIsAuthenticated('true');}} closeModalFn={() => {  setAuthenticationModal(false)}}></AuthenticationForm>}
-    </div>
+    <appContext.Provider value={{setAuthenticationModal}}>
+      <div className="app-body">
+        <Header userDetails={userDetails} isAuthenticated={isAuthenticated} authenticationModalHandler={setAuthenticationModal} setAuthenticatedCB={(value) => {setIsAuthenticated(value);}} ></Header>
+        {(!isAuthenticated || isAuthenticated === 'false') && (<Welcome></Welcome>)}
+        {(isAuthenticated === 'true') && (<MainBody></MainBody>)}
+        {isAuthenticated === 'true' && getAuthenticatedView(userDetails.userName)}
+        {isAuthenticationModalOpen && <AuthenticationForm setAuthenticatedCB={() => {setIsAuthenticated('true');}} closeModalFn={() => {  setAuthenticationModal(false)}}></AuthenticationForm>}
+      </div>
+    </appContext.Provider>
   )
 }
