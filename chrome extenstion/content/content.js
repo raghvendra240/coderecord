@@ -1,6 +1,7 @@
 
 const LOCAL_STORAGE_KEY = 'coderecordUserData';
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://rich-elk-top-coat.cyclic.app/api";
+// const BASE_URL = "http://localhost:5000/api";
 
 let currentPlatform = null;
 
@@ -31,6 +32,7 @@ function getProblemUrl(problemId) {
   if (currentPlatform === "gfg") {
     return `${problemUrl}/1`;
   }
+  return problemUrl;
 }
 function getProblemName(problemId) {
   const lastChunk = problemId.split("-").pop();

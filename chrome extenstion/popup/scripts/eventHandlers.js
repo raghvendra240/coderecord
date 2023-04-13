@@ -136,7 +136,9 @@ async function onReminderClick(event) {
 async function onDashboardClick(event) {
     event.preventDefault();
     const token = await getToken();
-    const url = `http://localhost:3000/?token=${token}`;
+    // const FE_BASE_URL = 'http://localhost:3000/';
+    const FE_BASE_URL = 'http://coderecord.onrender.com/';
+    const url = `${FE_BASE_URL}?token=${token}`;
     chrome.tabs.create({ url});
 }
  

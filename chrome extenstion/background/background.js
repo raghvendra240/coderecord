@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://rich-elk-top-coat.cyclic.app/api";
+// const BASE_URL = "http://localhost:5000/api";
 const LOCAL_STORAGE_KEY = "coderecordUserData";
 
 function showNotification(reminderLength = 2, firstName = "Raghvendra") {
