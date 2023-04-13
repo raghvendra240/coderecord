@@ -12,7 +12,7 @@ import $ from 'jquery'
 
 export default function Sort() {
   const {sortOptions, setSortId, applyingOperations, setCurrentOperation} = useContext(mainBodyContext);
-  const defaultSort = sortOptions.length && sortOptions.find((sortOption) => sortOption.default);
+  const defaultSort = sortOptions && sortOptions.length && sortOptions.find((sortOption) => sortOption.default);
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const [selectedSortOption, setSelectedSortOption] = useState(defaultSort.id);
   document.addEventListener('click', (e) => {

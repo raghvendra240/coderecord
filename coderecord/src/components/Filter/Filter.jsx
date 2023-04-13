@@ -12,7 +12,7 @@ import $ from "jquery";
 
 export default function Filter() {
   const { filterOptions, setFilterId, applyingOperations, setCurrentOperation} = useContext(mainBodyContext);
-  const defaultFilter = filterOptions.length && filterOptions.find((filterOption) => filterOption.default);
+  const defaultFilter = filterOptions && filterOptions.length && filterOptions.find((filterOption) => filterOption.default);
   const [selectedFilter, setSelectedFilter] = useState(defaultFilter.id);
   const [dropdownStatus, setDropdownStatus] = useState(false);
   document.addEventListener('click', (e) => {
