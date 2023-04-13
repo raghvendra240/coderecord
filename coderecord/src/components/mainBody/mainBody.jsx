@@ -94,6 +94,7 @@ export default function MainBody() {
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
       {operationsLoaded >= 2 && <Operations></Operations>}
+      {operationsLoaded < 2 && <div style={{margin: '25px 45px'}}><Card showSkeleton={true}></Card> </div>}
       <div className='card-wrapper js-card-scrollable'>
       {solvedProblemsLoading && 
         <div>
