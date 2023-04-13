@@ -18,6 +18,8 @@ export default function MainBody() {
   const [operationsLoaded, setOperationsLoaded] = useState(0);
   const [solvedProblemsLoading, setSolvedProblemsLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [applyingOperations, setApplyingOperations] = useState(0);
+  const [currentOperation, setCurrentOperation] = useState(0);
   let totalPagesRef = useRef(0);
   let currentPage = 1;
 
@@ -64,6 +66,7 @@ export default function MainBody() {
   useEffect(() => {
     const fetchSolvedProblemsWrapper = async () => {
     try {
+      setApplyingOperations(currentOperation);
         let data = await fetchSolvedProblems(searchText, sortId, filterId);
         let solvedProblems_ = data.solvedProblems;
         if (!solvedProblems_) {
@@ -76,6 +79,8 @@ export default function MainBody() {
         }
       } catch (error) {
         console.log("Error while fetching solved problems",error);
+      } finally {
+        setApplyingOperations(0);
       }
     };
 
@@ -85,7 +90,7 @@ export default function MainBody() {
 
 
   return (
-    <mainBodyContext.Provider value={{searchText, setSearchText, setSortId, setFilterId, sortOptions, filterOptions}}>
+    <mainBodyContext.Provider value={{searchText, setSearchText, setSortId, setFilterId, sortOptions, filterOptions, applyingOperations, setCurrentOperation}}>
     <div className='main-body-container'>
       {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
       {operationsLoaded >= 2 && <Operations></Operations>}

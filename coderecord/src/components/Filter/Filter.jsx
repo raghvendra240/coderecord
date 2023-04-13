@@ -5,11 +5,13 @@ import filter_empty from "../../assets/images/filter_empty.svg";
 import filter_filled from "../../assets/images/filter_filled.svg";
 import downChevron from "../../assets/images/down-chevron.svg";
 import upChevron from "../../assets/images/up-chevron.svg";
+import circularLoader from '../../assets/images/circular-loader.gif'
 import mainBodyContext from "../../contexts/mainBodyContext";
+import {OPERATION_MAPPING} from '../../utils/globalConstants'
 import $ from "jquery";
 
 export default function Filter() {
-  const { filterOptions, setFilterId } = useContext(mainBodyContext);
+  const { filterOptions, setFilterId, applyingOperations, setCurrentOperation} = useContext(mainBodyContext);
   const defaultFilter = filterOptions.length && filterOptions.find((filterOption) => filterOption.default);
   const [selectedFilter, setSelectedFilter] = useState(defaultFilter.id);
   const [dropdownStatus, setDropdownStatus] = useState(false);
@@ -30,6 +32,7 @@ export default function Filter() {
     let $element = $(e.target);
     $element = $element.hasClass('js-filter-item') ? $element : $element.parents('.js-filter-item')
     const index = $element.data('index');
+    setCurrentOperation(OPERATION_MAPPING.FILTER);
     setSelectedFilter(index);
     setDropdownStatus(false);
     setFilterId(filterOptions[index].id)
@@ -45,7 +48,7 @@ export default function Filter() {
           <div className="selected">{filterOptions[selectedFilter].name}</div>
         </div>
         <div className="down-chevron">
-          <img src={dropdownStatus ? upChevron : downChevron} alt="" />
+          <img src={applyingOperations === OPERATION_MAPPING.FILTER ? circularLoader : (dropdownStatus ? upChevron : downChevron)} alt="" />
         </div>
       </div>
       <div className={`sort-list js-filter-list ${dropdownStatus &&  'active'}`} onClick={listClickHandler}>

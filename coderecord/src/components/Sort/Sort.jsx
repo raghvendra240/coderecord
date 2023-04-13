@@ -5,11 +5,13 @@ import downChevron from '../../assets/images/down-chevron.svg'
 import upChevron from '../../assets/images/up-chevron.svg'
 import ascendingIcon from '../../assets/images/ascending.svg'
 import descendingIcon from '../../assets/images/descending.svg'
+import circularLoader from '../../assets/images/circular-loader.gif'
 import mainBodyContext from '../../contexts/mainBodyContext'
+import {OPERATION_MAPPING} from '../../utils/globalConstants'
 import $ from 'jquery'
 
 export default function Sort() {
-  const {sortOptions, setSortId} = useContext(mainBodyContext);
+  const {sortOptions, setSortId, applyingOperations, setCurrentOperation} = useContext(mainBodyContext);
   const defaultSort = sortOptions.length && sortOptions.find((sortOption) => sortOption.default);
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const [selectedSortOption, setSelectedSortOption] = useState(defaultSort.id);
@@ -30,6 +32,7 @@ export default function Sort() {
     let $element = $(e.target);
     $element = $element.hasClass('sort-item') ? $element : $element.parents('.sort-item')
     const index = $element.data('index');
+    setCurrentOperation(OPERATION_MAPPING.SORT)
     setSelectedSortOption(index);
     setDropdownStatus(false);
     setSortId(sortOptions[index].id)
@@ -41,11 +44,11 @@ export default function Sort() {
           <img src={sortIcon} alt="" />
         </div>
         <div className='sort-text'>
-          <div>Sort:</div>
-          <div className='selected'>{sortOptions[selectedSortOption].name || ''}</div>
+        <div>Sort:</div>
+          <div className='selected'>{sortOptions[selectedSortOption]?.name || ''}</div>
         </div>
         <div className='down-chevron'>
-          <img src={dropdownStatus ? upChevron : downChevron} alt="" />
+          <img src={applyingOperations === OPERATION_MAPPING.SORT ? circularLoader :  (dropdownStatus ? upChevron : downChevron)} alt="" />
         </div>
       </div>
       <div className={`sort-list js-sort-list ${dropdownStatus &&  'active'}`} onClick={listClickHandler}>
