@@ -14,4 +14,5 @@ export const OPERATION_MAPPING = {
 export const smallComponents = {
     DATE: 'DATE',
     EMPTY_SCREEN: 'EMPTY_SCREEN',
+    NO_RESULT_FOUND: 'NO_RESULT_FOUND',
 }

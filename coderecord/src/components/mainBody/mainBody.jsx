@@ -26,6 +26,14 @@ export default function MainBody() {
   let totalPagesRef = useRef(0);
   let currentPage = 1;
 
+  const showOperationsRow = function () {
+    const basicCondition =  !solvedProblemsLoading && operationsLoaded >= 2 ;
+    if (basicCondition && solvedProblems.length === 0) {
+        return searchText.length > 0;
+    }
+    return basicCondition;
+  }
+
   const loadMore = async () => {
     if (currentPage < totalPagesRef.current) {
       ++currentPage;
@@ -95,19 +103,20 @@ export default function MainBody() {
   return (
     <mainBodyContext.Provider value={{searchText, setSearchText, setSortId, setFilterId, sortOptions, filterOptions, applyingOperations, setCurrentOperation}}>
     <div className='main-body-container'>
-      {operationsLoaded >= 2 && <Operations></Operations>}
-      {(searchText.length && solvedProblems.length === 0) && <SmallComponents type={smallComponents.EMPTY_SCREEN} config={{iconClass: notFoundIcon, emptyMessage:"No result found"}} ></SmallComponents>}
+      { showOperationsRow() && <Operations></Operations>}
+      {!showOperationsRow() && !solvedProblemsLoading  && <SmallComponents type={smallComponents.EMPTY_SCREEN} config={{emptyMessage:"Get started with Coderecord by solving your first coding problem!"}} ></SmallComponents>}
+      {(searchText.length && solvedProblems.length === 0) && <SmallComponents type={smallComponents.NO_RESULT_FOUND} config={{iconClass: notFoundIcon, emptyMessage:"No result found"}} ></SmallComponents>}
       {operationsLoaded < 2 && <div style={{margin: '25px 45px'}}><Card showSkeleton={true}></Card> </div>}
       <div className='card-wrapper js-card-scrollable'>
-      {solvedProblemsLoading && 
-        <div>
-          <Card showSkeleton={true}></Card>
-          <Card showSkeleton={true}></Card>
-          <Card showSkeleton={true}></Card>
-        </div>
-        }
-        {!solvedProblemsLoading && solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
-        {loadingMore && <ThreeDotLoader></ThreeDotLoader>}
+        {solvedProblemsLoading && 
+          <div>
+            <Card showSkeleton={true}></Card>
+            <Card showSkeleton={true}></Card>
+            <Card showSkeleton={true}></Card>
+          </div>
+          }
+          {!solvedProblemsLoading && solvedProblems.length > 0 && solvedProblems.map((problem) => { return <Card problem={problem} key={problem._id}></Card>})}
+          {loadingMore && <ThreeDotLoader></ThreeDotLoader>}
       </div>
     </div>
     </mainBodyContext.Provider>
