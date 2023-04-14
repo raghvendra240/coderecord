@@ -4,6 +4,8 @@ import calenderIcon from "../../assets/images/calander.svg";
 import {smallComponents} from '../../utils/globalConstants'
 import PrimaryButton from '../primaryButton/primaryButton'
 import chromeExtensionCoderecordLogo from '../../assets/images/extension-coderecord-logo.png'
+import {openUrlInNewTab} from '../../utils/commonFuntions'
+import {URLS, PLATFORM_ICONS} from '../../utils/globalConstants'
 
 function dateComponent({date}) {
     const dateObj = new Date(date);
@@ -23,6 +25,14 @@ function dateComponent({date}) {
     )
 }
 
+function platformButtons ({platform}) {
+   return (
+        <div className='platform-btn'>
+            <img onClick={() => {openUrlInNewTab(URLS[platform])}} src={PLATFORM_ICONS[platform]} alt="" srcset="" />
+        </div>
+   )
+}
+
 function noResultFound ({iconClass, emptyMessage}) {
     return (
         <div className='not-found'>
@@ -30,6 +40,9 @@ function noResultFound ({iconClass, emptyMessage}) {
                 <img src={iconClass} alt="" srcset=""></img>
             </div>}
             <div className='not-found-text'>{emptyMessage}</div>
+            <div platforms>
+                
+            </div>
         </div>
     )
 }
@@ -54,5 +67,7 @@ export default function SmallComponents({type, config}) {
         return noResultFound(config);
     } else if (type === smallComponents.EMPTY_SCREEN) {
         return emptyScreen(config);
+    } else if (type === smallComponents.PLATFORM_ICON) {
+        return platformButtons(config);
     } else return '';
 }

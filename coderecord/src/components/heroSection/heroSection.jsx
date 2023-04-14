@@ -5,10 +5,8 @@ import '../../assets/styles/common.scss'
 import illustration from '../../assets/images/illustration.svg'
 import PrimaryButton from '../primaryButton/primaryButton'
 import appContext from '../../contexts/appContext'
-import gfgIcon from '../../assets/images/gfg_icon.png'
-import leetcodeIcon from '../../assets/images/leetcode_icon_2.png'
-import {openUrlInNewTab} from '../../utils/commonFuntions'
-import {URLS} from '../../utils/globalConstants'
+import SmallComponents from '../SmallComponents/SmallComponents'
+import { PLATFORMS, smallComponents } from '../../utils/globalConstants'
 export default function HeroSection() {
   const {setAuthenticationModal} = useContext(appContext);
   return (
@@ -30,10 +28,10 @@ export default function HeroSection() {
                   <div className='separator'></div>
                   <div className='platform-container'>
                       <div>
-                        <img onClick={() => {openUrlInNewTab(URLS.GFG)}} src={gfgIcon} alt="" srcset="" />
+                        <SmallComponents type={smallComponents.PLATFORM_ICON} config={{platform: PLATFORMS.GFG}}></SmallComponents>
                       </div>
                       <div>
-                        <img onClick={() => {openUrlInNewTab(URLS.LEETCODE)}} src={leetcodeIcon} alt="" srcset="" />
+                        <SmallComponents type={smallComponents.PLATFORM_ICON} config={{platform: PLATFORMS.LEETCODE}}></SmallComponents>
                       </div>
                   </div>
               </div>

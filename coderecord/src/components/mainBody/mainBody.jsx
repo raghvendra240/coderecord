@@ -104,7 +104,7 @@ export default function MainBody() {
     <mainBodyContext.Provider value={{searchText, setSearchText, setSortId, setFilterId, sortOptions, filterOptions, applyingOperations, setCurrentOperation}}>
     <div className='main-body-container'>
       { showOperationsRow() && <Operations></Operations>}
-      {!showOperationsRow() && !solvedProblemsLoading  && <SmallComponents type={smallComponents.EMPTY_SCREEN} config={{emptyMessage:"Get started with Coderecord by solving your first coding problem!"}} ></SmallComponents>}
+      {!showOperationsRow() && !solvedProblemsLoading  && operationsLoaded >= 2 && <SmallComponents type={smallComponents.EMPTY_SCREEN} config={{emptyMessage:"Get started with Coderecord by solving your first coding problem!"}} ></SmallComponents>}
       {(searchText.length && solvedProblems.length === 0) && <SmallComponents type={smallComponents.NO_RESULT_FOUND} config={{iconClass: notFoundIcon, emptyMessage:"No result found"}} ></SmallComponents>}
       {operationsLoaded < 2 && <div style={{margin: '25px 45px'}}><Card showSkeleton={true}></Card> </div>}
       <div className='card-wrapper js-card-scrollable'>
