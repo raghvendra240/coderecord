@@ -16,3 +16,8 @@ export const smallComponents = {
     EMPTY_SCREEN: 'EMPTY_SCREEN',
     NO_RESULT_FOUND: 'NO_RESULT_FOUND',
 }
+
+export const URLS = {
+    LEETCODE: 'https://leetcode.com/problems/',
+    GFG: 'https://practice.geeksforgeeks.org/',
+}
