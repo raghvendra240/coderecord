@@ -5,7 +5,7 @@ import {smallComponents} from '../../utils/globalConstants'
 import PrimaryButton from '../primaryButton/primaryButton'
 import chromeExtensionCoderecordLogo from '../../assets/images/extension-coderecord-logo.png'
 import {openUrlInNewTab} from '../../utils/commonFuntions'
-import {URLS, PLATFORM_ICONS} from '../../utils/globalConstants'
+import {URLS, PLATFORM_ICONS, PLATFORMS} from '../../utils/globalConstants'
 
 function dateComponent({date}) {
     const dateObj = new Date(date);
@@ -40,9 +40,6 @@ function noResultFound ({iconClass, emptyMessage}) {
                 <img src={iconClass} alt="" srcset=""></img>
             </div>}
             <div className='not-found-text'>{emptyMessage}</div>
-            <div platforms>
-                
-            </div>
         </div>
     )
 }
@@ -55,6 +52,10 @@ function emptyScreen ({iconClass, emptyMessage}) {
             </div>
             <div className='primary-button'><PrimaryButton btnText='Download Chrome Extension'></PrimaryButton></div>
             <div className='sub-title'>Get started with Coderecord by solving your first coding problem!</div>
+            <div className='platforms'>
+                {platformButtons({platform: PLATFORMS.GFG})}
+                {platformButtons({platform: PLATFORMS.LEETCODE})}
+            </div>
         </div>
    )
 }
