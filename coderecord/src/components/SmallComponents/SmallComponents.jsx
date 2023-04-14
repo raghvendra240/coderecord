@@ -1,8 +1,9 @@
 import React from 'react'
 import './SmallComponents.scss'
 import calenderIcon from "../../assets/images/calander.svg";
+import {smallComponents} from '../../utils/globalConstants'
 
-function dateComponent(date) {
+function dateComponent({date}) {
     const dateObj = new Date(date);
     const day = String(dateObj.getDate()).padStart(2, '0');
     const month = String(dateObj.getMonth() + 1).padStart(2, '0'); 
@@ -20,9 +21,22 @@ function dateComponent(date) {
     )
 }
 
-export default function SmallComponents({dateType, date}) {
+function emptyScreen ({iconClass, emptyMessage}) {
+    return (
+        <div className='empty-screen'>
+            <div className='empty-screen-icon'>
+                <img src={iconClass} alt="" srcset=""></img>
+            </div>
+            <div className='empty-screen-text'>{emptyMessage}</div>
+        </div>
+    )
+}
+
+export default function SmallComponents({type, config}) {
     
-    if (dateType) {
-        return dateComponent(date);
+    if (type === smallComponents.DATE) {
+        return dateComponent(config);
+    } else if (type === smallComponents.EMPTY_SCREEN) {
+        return emptyScreen(config);
     } else return '';
 }

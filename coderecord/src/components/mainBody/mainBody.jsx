@@ -7,6 +7,9 @@ import Operations from '../Operations/Operations'
 import $ from 'jquery'
 import mainBodyContext from '../../contexts/mainBodyContext'
 import ThreeDotLoader from '../ThreeDotLoader/ThreeDotLoader'
+import SmallComponents from '../SmallComponents/SmallComponents'
+import notFoundIcon from '../../assets/images/not-found.png'
+import { smallComponents } from '../../utils/globalConstants'
 
 export default function MainBody() {
   const [solvedProblems, setSolvedProblems] = useState([]);
@@ -92,8 +95,8 @@ export default function MainBody() {
   return (
     <mainBodyContext.Provider value={{searchText, setSearchText, setSortId, setFilterId, sortOptions, filterOptions, applyingOperations, setCurrentOperation}}>
     <div className='main-body-container'>
-      {solvedProblems.length === 0 && <div className='no-solved-problems'>No solved problems found</div>}
       {operationsLoaded >= 2 && <Operations></Operations>}
+      {(searchText.length && solvedProblems.length === 0) && <SmallComponents type={smallComponents.EMPTY_SCREEN} config={{iconClass: notFoundIcon, emptyMessage:"No result found"}} ></SmallComponents>}
       {operationsLoaded < 2 && <div style={{margin: '25px 45px'}}><Card showSkeleton={true}></Card> </div>}
       <div className='card-wrapper js-card-scrollable'>
       {solvedProblemsLoading && 
