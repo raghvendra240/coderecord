@@ -46,7 +46,7 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Error('User not found');
+      throw new Error('Invalid login credentials');
     }
 
     const isMatch = await user.comparePassword(password);
@@ -66,7 +66,7 @@ exports.loginUser = async (req, res) => {
     console.log("Error while logging in user", error);
     res.status(400).send({
       success: false,
-      message: 'Error while logging in user',
+      message: error.message,
       data: [],
       err: [error],
     });

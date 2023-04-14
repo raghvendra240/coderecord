@@ -118,8 +118,7 @@ function getForm(formState) {
 
 async function loginHandler(setFormState, formFields) {
   const userData = formFields;
-  const isLoginSuccess = await login(userData);
-  return isLoginSuccess
+  return  await login(userData);
 }
 
 function primaryBtnClickHandler(event, formState, setFormState, formFields) {
@@ -138,13 +137,20 @@ export default function AuthenticationForm({currentFormState, closeModalFn, setA
   const [formState, setFormState] = useState(currentFormState || formStates.SIGN_IN);
   const [formFields, setFormFields] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [formError, setFormError] = useState('');
   async function primaryBtnClickHandlerWrapper(event) {
     event.preventDefault();
     setIsLoading(true);
-    const isOperationSuccessful = await primaryBtnClickHandler(event, formState, setFormState, formFields);
+    setFormError('');
+    const {error, msg} = await primaryBtnClickHandler(event, formState, setFormState, formFields);
+    const isOperationSuccessful = !error;
+    if (isOperationSuccessful) {
+      closeModalFn();
+      setAuthenticatedCB(true);
+    } else {
+      setFormError(msg);
+    }
     setIsLoading(false);
-    closeModalFn();
-    isOperationSuccessful && setAuthenticatedCB(true);
   }
   // eslint-disable-next-line no-func-assign
   primaryBtnClickHandlerWrapper = primaryBtnClickHandlerWrapper.bind(this);
@@ -168,6 +174,7 @@ export default function AuthenticationForm({currentFormState, closeModalFn, setA
             {formState === formStates.OTP ? getOTPFields(handleInputChange) : ''}
             {formState === formStates.SIGN_IN ? getSignInFields(handleInputChange) : ''}
             {formState === formStates.SIGN_UP ? getSignUpFields(handleInputChange) : ''}
+            {formError && <div className="error-text">{formError}</div>}
             <div className="cr-margin-top-24">
               <PrimaryButton btnText={getButtonText(formState)} clickHandlerCB={primaryBtnClickHandlerWrapper} ></PrimaryButton>
             </div>

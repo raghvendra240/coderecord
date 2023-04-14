@@ -19,11 +19,15 @@ export const getUserInfo = async () => {
 };
 
 export const login = async (userData) => {
-    let response = await axios.post(`${BASE_URL}/users/login`, userData);
-    response = response.data;
-    if (response.success) {
-        saveLocalData(response.data);
-        return true;
+    try {
+        let response = await axios.post(`${BASE_URL}/users/login`, userData);
+        response = response.data;
+        if (response.success) {
+            saveLocalData(response.data);
+            return {msg: 'Login successful', error: false};
+        }
+    } catch (error) {
+        const msg = error.response.data.message;
+        return {msg: msg, error: true};
     }
-    return null;
 }
