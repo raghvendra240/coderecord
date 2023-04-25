@@ -7,7 +7,8 @@ import CloseButton from "../closeButton/closeButton";
 import miniLogo from "../../assets/images/logo_mini.png";
 import Loader from "../loader/loader";
 import '../../assets/styles/common.scss'
-
+import {CHROME_EXTENSION_URL} from "../../utils/globalConstants";
+import { openUrlInNewTab } from "../../utils/commonFuntions";
 import {login} from "../../services/userService";
 
 const formStates = {
@@ -179,7 +180,7 @@ export default function AuthenticationForm({currentFormState, closeModalFn, setA
               <PrimaryButton btnText={getButtonText(formState)} clickHandlerCB={primaryBtnClickHandlerWrapper} ></PrimaryButton>
             </div>
             <div className="cr-margin-top-12">
-              <a href="" className="download-link">Download Chrome Extension</a> to register
+              <a onClick={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} className="download-link">Download Chrome Extension</a> to register
             </div>
           </div>
         </div>

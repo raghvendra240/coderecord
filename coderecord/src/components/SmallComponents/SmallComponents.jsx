@@ -5,7 +5,7 @@ import {smallComponents} from '../../utils/globalConstants'
 import PrimaryButton from '../primaryButton/primaryButton'
 import chromeExtensionCoderecordLogo from '../../assets/images/extension-coderecord-logo.png'
 import {openUrlInNewTab} from '../../utils/commonFuntions'
-import {URLS, PLATFORM_ICONS, PLATFORMS} from '../../utils/globalConstants'
+import {URLS, PLATFORM_ICONS, PLATFORMS, CHROME_EXTENSION_URL} from '../../utils/globalConstants'
 
 function dateComponent({date}) {
     const dateObj = new Date(date);
@@ -50,7 +50,7 @@ function emptyScreen ({iconClass, emptyMessage}) {
             <div className='chrome-extension-logo'>
                 <img src={chromeExtensionCoderecordLogo} alt="" srcset="" />
             </div>
-            <div className='primary-button'><PrimaryButton btnText='Download Chrome Extension'></PrimaryButton></div>
+            <div className='primary-button'><PrimaryButton btnText='Download Chrome Extension'clickHandlerCB={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} ></PrimaryButton></div>
             <div className='sub-title'>Get started with Coderecord by solving your first coding problem!</div>
             <div className='platforms'>
                 {platformButtons({platform: PLATFORMS.GFG})}

@@ -6,7 +6,8 @@ import illustration from '../../assets/images/illustration.svg'
 import PrimaryButton from '../primaryButton/primaryButton'
 import appContext from '../../contexts/appContext'
 import SmallComponents from '../SmallComponents/SmallComponents'
-import { PLATFORMS, smallComponents } from '../../utils/globalConstants'
+import { PLATFORMS, smallComponents, CHROME_EXTENSION_URL } from '../../utils/globalConstants'
+import { openUrlInNewTab } from '../../utils/commonFuntions'
 export default function HeroSection() {
   const {setAuthenticationModal} = useContext(appContext);
   return (
@@ -19,7 +20,7 @@ export default function HeroSection() {
             <div className='subtext'>Stay organized with your coding progress.</div>
             <div className='app-info'>CodeRecord is the best app to keep track of your coding problems and solutions. With CodeRecord, you can easily organize and manage all your coding challenges, and never forget a solution again.</div>
               <div className='download-section'>
-                <PrimaryButton btnText='Download Chrome Extension'></PrimaryButton>
+                <PrimaryButton btnText='Download Chrome Extension' clickHandlerCB={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} ></PrimaryButton>
                 <div className='vertical-separator'></div>
                 <PrimaryButton btnText='Login' clickHandlerCB = {()=> {setAuthenticationModal(true)}}></PrimaryButton>
               </div>
