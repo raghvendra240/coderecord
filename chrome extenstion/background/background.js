@@ -1,4 +1,6 @@
 const BASE_URL = "https://rich-elk-top-coat.cyclic.app/api";
+const leetcodeBaseURL = "https://leetcode.com";
+const gfgBaseURL = "https://practice.geeksforgeeks.org";
 // const BASE_URL = "http://localhost:5000/api";
 const LOCAL_STORAGE_KEY = "coderecordUserData";
 
@@ -68,7 +70,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 });
 
 chrome.runtime.onMessage.addListener((message) => {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, message);
+  chrome.tabs.query({}, function (tabs) {
+    const desiredTab = tabs.find((tab) => tab.url.startsWith(leetcodeBaseURL) || tab.url.startsWith(gfgBaseURL));
+    desiredTab && chrome.tabs.sendMessage(desiredTab.id, message);
   });
 });

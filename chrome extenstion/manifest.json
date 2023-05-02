@@ -7,7 +7,6 @@
         "tabs",
         "activeTab",
         "storage",
-        "alarms",
         "notifications"
       ],
     "content_scripts": [
