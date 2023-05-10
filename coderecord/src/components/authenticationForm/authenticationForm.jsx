@@ -180,7 +180,7 @@ export default function AuthenticationForm({currentFormState, closeModalFn, setA
               <PrimaryButton btnText={getButtonText(formState)} clickHandlerCB={primaryBtnClickHandlerWrapper} ></PrimaryButton>
             </div>
             <div className="cr-margin-top-12">
-              <a onClick={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} className="download-link">Download Chrome Extension</a> to register
+              <a onClick={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} className="download-link">Install Chrome Extension</a> to register
             </div>
           </div>
         </div>

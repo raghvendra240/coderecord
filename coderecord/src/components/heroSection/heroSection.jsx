@@ -20,7 +20,7 @@ export default function HeroSection() {
             <div className='subtext'>Stay organized with your coding progress.</div>
             <div className='app-info'>CodeRecord is the best app to keep track of your coding problems and solutions. With CodeRecord, you can easily organize and manage all your coding challenges, and never forget a solution again.</div>
               <div className='download-section'>
-                <PrimaryButton btnText='Download Chrome Extension' clickHandlerCB={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} ></PrimaryButton>
+                <PrimaryButton btnText='Install Chrome Extension' clickHandlerCB={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} ></PrimaryButton>
                 <div className='vertical-separator'></div>
                 <PrimaryButton btnText='Login' clickHandlerCB = {()=> {setAuthenticationModal(true)}}></PrimaryButton>
               </div>

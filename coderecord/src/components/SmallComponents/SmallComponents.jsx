@@ -50,7 +50,7 @@ function emptyScreen ({iconClass, emptyMessage}) {
             <div className='chrome-extension-logo'>
                 <img src={chromeExtensionCoderecordLogo} alt="" srcset="" />
             </div>
-            <div className='primary-button'><PrimaryButton btnText='Download Chrome Extension'clickHandlerCB={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} ></PrimaryButton></div>
+            <div className='primary-button'><PrimaryButton btnText='Install Chrome Extension'clickHandlerCB={() => {openUrlInNewTab(CHROME_EXTENSION_URL)}} ></PrimaryButton></div>
             <div className='sub-title'>Get started with Coderecord by solving your first coding problem!</div>
             <div className='platforms'>
                 {platformButtons({platform: PLATFORMS.GFG})}
