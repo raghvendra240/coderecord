@@ -45,6 +45,22 @@ async function getToken() {
     return localData.token;
 }
 
+function resetMsgAndLoaders() {
+  const msgElement = document.querySelector('.custom-msg');
+  msgElement.style.display = 'none';
+  document.querySelector('.button-text').classList.remove('hidden');
+  document.querySelector('.button-loader').classList.add('hidden');
+}
+
+function showMsg(msg, error) {
+    resetMsgAndLoaders();
+    const msgElement = document.querySelector('.custom-msg');
+    msgElement.textContent = msg;
+    msgElement.style.display = 'block';
+    if (error) {
+        msgElement.classList.add('error');
+    }
+}
 function getFormData(event) {
     event.preventDefault();
     document.querySelector('.button-text').classList.add('hidden');
@@ -58,12 +74,24 @@ function getFormData(event) {
     return data;
 }
 
+function checkValidReminder(reminderDate) {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    reminderDate.setHours(0, 0, 0, 0);
+    return reminderDate > currentDate; 
+}
+
 async function submitProblem(event) {
+    resetMsgAndLoaders();
     let formData = {};
     if (event) {
       formData = getFormData(event);
     }
     const data = { ...formData, ...problemObj, submittedDate: new Date() };
+    if (data.reminderDate && !checkValidReminder(new Date(data.reminderDate))) {
+        showMsg('Reminder date should be greater than today\'s date', true);
+        return;
+    }
     const token = await getToken();
     if (!token) {
         return;
@@ -203,6 +231,11 @@ function getModal() {
     messageText.innerText =
       "Now you can set reminder and additional hints to help you remember the solution.";
     popupBody.appendChild(messageText);
+
+    const customMsg = document.createElement("p");
+    customMsg.classList.add("custom-msg");
+    customMsg.innerText = "";
+    popupBody.appendChild(customMsg);
   
     const form = document.createElement("form");
     const label = document.createElement("label");
@@ -562,9 +595,17 @@ function getModal() {
     animation: slide-in 0.5s ease-in-out forwards;
   }
   
-  @keyframes slide-in {
-    0% {
-      transform: translateY
+  .custom-msg {
+    margin-top: 12px;
+    padding: 5px 8px;
+    border-radius: 3px;
+    display:none;
+
+  }
+  .custom-msg.error {
+    color: #5d1313;
+    background: #d48181;
+  }
   
  
   `;
