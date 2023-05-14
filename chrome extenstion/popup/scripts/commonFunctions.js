@@ -1,5 +1,6 @@
 const LOCAL_STORAGE_KEY = 'coderecordUserData';
 // const BASE_URL = "http://localhost:5000/api";
+const FE_BASE_URL = 'https://coderecord.co/';
 const BASE_URL = "https://rich-elk-top-coat.cyclic.app/api";
 
 const getLocalData = async () => {
@@ -71,8 +72,12 @@ function removeSilentMode() {
 
 /* Token related */
 const getToken = async () => {
-    const localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
-    return localData[LOCAL_STORAGE_KEY]['token'];
+    try {
+        const localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);
+        return localData[LOCAL_STORAGE_KEY]['token'];
+    } catch (error) {
+        return;
+    }
 }
 
 /*------------------Loader Related--------------- */

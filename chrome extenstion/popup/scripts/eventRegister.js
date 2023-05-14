@@ -23,3 +23,6 @@ document.querySelectorAll('.form').forEach(form => {
     /*-----------------OTP to Signup--------*/
     document.querySelector('.otp-to-signup').addEventListener('click', switchToSignup);
 
+    /*--------------Main Logo---------------*/
+    document.querySelector('.main-logo-img').addEventListener('click', onLogoClick);
+
