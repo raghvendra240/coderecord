@@ -1,8 +1,9 @@
 
 async function loadReminders() {
     const reminders = await getReminders();
-    document.querySelector('.js-reminder-loader').classList.add('hidden');
+    document.querySelector('.js-reminder-skeleton').classList.add('hidden');
     if (!reminders.success || !reminders.data.length) {
+        document.querySelector('.js-reminder-section').classList.remove('hidden');
         document.querySelector('.js-zero-reminder').classList.remove('hidden') 
     }
     document.querySelector('.reminder-section').classList.remove('hidden');
@@ -14,7 +15,6 @@ async function loadReminders() {
         reminderItemContainer.textContent = reminder.problemName;
         reminderItemContainer.setAttribute('data-url', reminder.problemUrl);
         reminderItemContainer.addEventListener('click', onReminderClick);
-
         reminderList.appendChild(reminderItem);
     });
 }
@@ -39,7 +39,9 @@ async function loadSolvedProblems() {
     document.querySelector('.num-of-problem-solved').textContent = solvedProblems.total || 0;
     document.querySelector('.leetcode-solved').textContent = solvedProblems.leetcode || 0
     document.querySelector('.gfg-solved').textContent = solvedProblems.gfg || 0;
-    document.querySelector('.js-problem-loader').classList.add('hidden');
+
+    document.querySelector('.js-problem-skeleton').classList.add('hidden');
+    document.querySelector('.js-problem-section').classList.remove('hidden');
     solvedProblems.total ? document.querySelector('.js-bade-wrapper').classList.remove('hidden') : document.querySelector('.js-zero-problem').classList.remove('hidden');
 }
 

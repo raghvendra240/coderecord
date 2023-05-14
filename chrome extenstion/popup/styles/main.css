@@ -189,6 +189,8 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  width: min-content;
+  max-width: 100%;
 }
 .reminder-item:hover {
   color: gray;
