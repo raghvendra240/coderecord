@@ -69,9 +69,22 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
-chrome.runtime.onMessage.addListener((message) => {
-  chrome.tabs.query({}, function (tabs) {
-    const desiredTab = tabs.find((tab) => tab.url.startsWith(leetcodeBaseURL) || tab.url.startsWith(gfgBaseURL));
-    desiredTab && chrome.tabs.sendMessage(desiredTab.id, message);
+async function getTabId(url) {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({url: url}, (tabs) => {
+      if (tabs && tabs.length > 0) {
+        resolve(tabs[0].id);
+      } else {
+        reject(undefined);
+      }
+    });
   });
+}
+
+
+chrome.runtime.onMessage.addListener(async (message) => {
+  if (message.type === "SHOW_POPUP") {
+    let tabId = await getTabId(message.tabUrl);
+    chrome.tabs.sendMessage(tabId, message);
+  }
 });

@@ -65,7 +65,12 @@ function submittedProblemHandler(userData) {
     problemName,
     platformName
   };
-  chrome.runtime.sendMessage({ type: 'SHOW_POPUP', problem: problem, isSilentMode: userData.silentMode });
+  chrome.runtime.sendMessage({ 
+    type: 'SHOW_POPUP', 
+    problem: problem, 
+    isSilentMode: userData.silentMode,
+    tabUrl: window.location.href,
+  });
 }
 
 const getAuthObject = async () => {
