@@ -132,6 +132,7 @@ body {
   justify-content: space-around;
   margin-top: 20px;
 }
+
 .badge-container {
   display: flex;
   align-items: center;
@@ -289,6 +290,10 @@ body {
   border-radius: 50%;
   width: 16px;
   height: 16px;
+}
+.loader:after.small {
+  width: 12px;
+  height: 12px;
 }
 .loader {
   font-size: 10px;

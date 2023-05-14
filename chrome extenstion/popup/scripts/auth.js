@@ -1,8 +1,9 @@
 
 async function loadReminders() {
     const reminders = await getReminders();
+    document.querySelector('.js-reminder-loader').classList.add('hidden');
     if (!reminders.success || !reminders.data.length) {
-        return;
+        document.querySelector('.js-zero-reminder').classList.remove('hidden') 
     }
     document.querySelector('.reminder-section').classList.remove('hidden');
     const reminderList = document.querySelector('.reminder-list');
@@ -38,6 +39,8 @@ async function loadSolvedProblems() {
     document.querySelector('.num-of-problem-solved').textContent = solvedProblems.total || 0;
     document.querySelector('.leetcode-solved').textContent = solvedProblems.leetcode || 0
     document.querySelector('.gfg-solved').textContent = solvedProblems.gfg || 0;
+    document.querySelector('.js-problem-loader').classList.add('hidden');
+    solvedProblems.total ? document.querySelector('.js-bade-wrapper').classList.remove('hidden') : document.querySelector('.js-zero-problem').classList.remove('hidden');
 }
 
 function loadUserDetails(user) {

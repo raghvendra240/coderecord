@@ -24,12 +24,38 @@
   .margin-left-8 {
     margin-left: 8px;
   }
+  .margin-left-4 {
+    margin-left: 4px;
+  }
   .margin-bottom-12 {
     margin-bottom: 12px;
   }
 
   .cursor-not-allowed, .cursor-not-allowed * {
     cursor: not-allowed;
+  }
+
+  .toaster {
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #fff;
+    width: 100%;
+  }
+  .toaster img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+  }
+  .toaster.info {
+    color: #055160;
+    background-color: #cff4fc;
+    border-color: #b6effb;
+  }
+  .toaster.green {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
   }
 
 

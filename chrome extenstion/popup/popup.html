@@ -87,8 +87,16 @@
           </div>
           <div class="separator"></div>
           <div class="problem-section">
-            <div style="margin-left:13px">Problem Solved : <span class="num-of-problem-solved"></span></div>
-            <div class="badge-wrapper">
+            <div style="margin-left:13px;" class="display-flex v-center">
+              <span>Problem Solved : </span> 
+              <span class="num-of-problem-solved hiddem"></span>
+              <div class="loader small js-problem-loader margin-left-4"></div>
+            </div>
+            <div class="toaster info zero-problem-container display-flex v-center js-zero-problem hidden margin-top-12" >
+              <img src="../assets/images/info-green.svg" alt="">
+              <div class="zero-problem-text">Start solving problems to record</div>
+            </div>
+            <div class="badge-wrapper js-bade-wrapper hidden">
               <div class="badge-container">
                 <img class="icon" src="../assets/images/gfg_icon.png" alt="" srcset="">
                 <span class="text gfg-solved" >0</span>
@@ -99,11 +107,17 @@
               </div>
             </div>        
           </div>
-          <div class="reminder-section hidden">
+          <div class="reminder-section">
             <div class="separator"></div>
             <div class="display-flex reminder-header">
               <img width="15px" src="../assets/images/bell.svg" alt="">
               <div class="reminder-text">Reminders</div>
+            </div>
+            <div class="display-flex h-center">
+              <div class="loader js-reminder-loader"></div>
+            </div>
+            <div class="toaster green zero-reminder-container js-zero-reminder hidden">
+              <div class="zero-reminder-text">No new reminders</div>
             </div>
             <div class="reminder-list">
               <template id="reminder-item-template">
