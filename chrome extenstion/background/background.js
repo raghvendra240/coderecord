@@ -71,11 +71,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 async function getTabId(url) {
   return new Promise((resolve, reject) => {
-    chrome.tabs.query({url: url}, (tabs) => {
+    chrome.tabs.query({url: url}, (tabs, error) => {
       if (tabs && tabs.length > 0) {
         resolve(tabs[0].id);
       } else {
-        reject(undefined);
+        reject(error);
       }
     });
   });
@@ -84,7 +84,11 @@ async function getTabId(url) {
 
 chrome.runtime.onMessage.addListener(async (message) => {
   if (message.type === "SHOW_POPUP") {
-    let tabId = await getTabId(message.tabUrl);
-    chrome.tabs.sendMessage(tabId, message);
+    try {
+      let tabId = await getTabId(message.tabUrl);
+      chrome.tabs.sendMessage(tabId, message);
+    } catch (error) {
+      console.log("Error while getting tab id", error);
+    }
   }
 });

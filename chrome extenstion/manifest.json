@@ -1,13 +1,13 @@
 {
     "manifest_version": 3,
     "name": "Coderecord",
-    "description": "Track your progress, conquer coding challenges, and reach new heights with CodeRecord",
-    "version": "1.0",
+    "description": "Record, organize, and track your coding journey with CodeRecord.",
+    "version": "1.2",
     "permissions": [
-        "tabs",
         "activeTab",
         "storage",
-        "notifications"
+        "notifications",
+        "tabs"
       ],
     "content_scripts": [
         {
