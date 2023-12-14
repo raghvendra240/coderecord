@@ -57,7 +57,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id },JWT_SECRET, { expiresIn: '5d' });
+  const token = jwt.sign({ _id: user._id },JWT_SECRET, { expiresIn: '60d' });
   // user.tokens = user.tokens.concat({ token });
   // await user.save();
   return token;
