@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Coderecord",
     "description": "Record, organize, and track your coding journey with CodeRecord.",
-    "version": "1.2",
+    "version": "1.2.1",
     "permissions": [
         "activeTab",
         "storage",
