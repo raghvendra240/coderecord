@@ -1,7 +1,7 @@
 const LOCAL_STORAGE_KEY = 'coderecordUserData';
 // const BASE_URL = "http://localhost:5000/api";
 const FE_BASE_URL = 'https://coderecord.co/';
-const BASE_URL = "https://rich-elk-top-coat.cyclic.app/api";
+const BASE_URL = "https://coderecord-server.onrender.com/api";
 
 const getLocalData = async () => {
     let localData = await chrome.storage.local.get(LOCAL_STORAGE_KEY);

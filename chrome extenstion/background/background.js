@@ -1,4 +1,4 @@
-const BASE_URL = "https://rich-elk-top-coat.cyclic.app/api";
+const BASE_URL = "https://coderecord-server.onrender.com/api";
 const leetcodeBaseURL = "https://leetcode.com";
 const gfgBaseURL = "https://practice.geeksforgeeks.org";
 // const BASE_URL = "http://localhost:5000/api";

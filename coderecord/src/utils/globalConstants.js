@@ -2,7 +2,7 @@ import SmallComponents from "../components/SmallComponents/SmallComponents";
 import gfgIcon from '../assets/images/gfg_icon.png'
 import leetcodeIcon from '../assets/images/leetcode_icon_2.png'
 
-export const BASE_URL = 'https://rich-elk-top-coat.cyclic.app/api';
+export const BASE_URL = 'https://coderecord-server.onrender.com/api';
 // export const BASE_URL = 'http://localhost:5000/api';
 // export const CHROME_EXTENSION_URL = 'https://drive.google.com/file/d/1UERkMa91Mh36wHaAa0peeM6OvbljAn5n/view?usp=drivesdk'
 export const CHROME_EXTENSION_URL = 'https://chrome.google.com/webstore/detail/coderecord/nhdjkhclcegklhkjbjhmahhgkdklhkeb?hl=en&authuser=0'

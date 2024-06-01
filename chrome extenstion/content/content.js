@@ -1,6 +1,6 @@
 
 const LOCAL_STORAGE_KEY = 'coderecordUserData';
-const BASE_URL = "https://rich-elk-top-coat.cyclic.app/api";
+const BASE_URL = "https://coderecord-server.onrender.com/api";
 // const BASE_URL = "http://localhost:5000/api";
 
 let currentPlatform = null;
